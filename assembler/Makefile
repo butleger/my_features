@@ -3,19 +3,20 @@ CFLAGS= $()
 DELETE= rm -rf
 LD = ld 
 LDFLAGS = -o
-SRC = main.asm
+LIB = asmlib
+SRC = main.asm $(LIB)/math.asm $(LIB)/io.asm $(LIB)/sys.asm $(LIB)/str.asm
 SRC_SUFF = asm
 EXEC_NAME = main
 
 
 all: link
-	./$(EXEC_NAME)
+	@./$(EXEC_NAME)
 
 link: $(addsuffix .o, $(basename $(SRC))) 
-	$(LD) $^ $(LDFLAGS) $(EXEC_NAME)
+	@$(LD) $^ $(LDFLAGS) $(EXEC_NAME)
 
 %.o: %.$(SRC_SUFF)
-	$(CC) $(CFLAGS) $^
+	@$(CC) $(CFLAGS) $^
 
 clean:
-	$(DELETE) *.o $(EXEC_NAME)
+	@$(DELETE) *.o $(EXEC_NAME)

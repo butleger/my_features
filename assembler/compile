@@ -1,6 +1,0 @@
-#!/bin/bash
-
-fasm main.asm
-ld main.o -o main
-rm main.o
-./main
