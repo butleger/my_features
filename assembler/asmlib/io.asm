@@ -1,22 +1,70 @@
 format ELF64
 
 public endl
+public printf
 public print_abcd
 public print_char
 public print_string
 public print_number
 public print_string_without_endl
 
-extrn strlen
+include "str.inc"
 
 
 section '.bss' writable
 	bss_char rb 1
 
 
+section '.printf' executable
+;|input;
+;	rax = string(format)
+;	stack = values
+printf:
+	push rax
+	push rbx
+	push rcx
+	push rdx
+
+	.next_iter:
+		mov rbp, 16
+		cmp [rax], byte 0
+		je .close
+		cmp [rax],byte '%'
+		je .special_char
+		jmp .default_char
+		.special_char:
+			inc rax
+			cmp [rax], byte 's'
+			je .print_string
+			.print_string:
+				push rax
+				mov rax, [rsp + rbx]
+				pop rax
+				inc rax
+				jmp .shift_stack
+		.default_char:
+			push rax
+			mov rax, [rax]
+			call print_char
+			pop rax	
+			inc rax
+			jmp .next_step
+		.shift_stack:
+			add rbx, 8
+		.next_step:
+			jmp .next_iter
+	.close:
+		pop rdx
+		pop rcx
+		pop rbx
+		pop rax
+		ret
+
+
+
+section '.print_number' executable
 ;| input
 ;rax = number
-section '.print_number'
 print_number:
 	push rax
 	push rbx

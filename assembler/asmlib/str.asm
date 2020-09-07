@@ -5,11 +5,11 @@ public reverse_string
 public strlen
 
 
+section '.strlen'
 ;|input:
 ;rax = string
 ;|output: 
 ;rax = number
-section '.strlen'
 strlen:
 	push rbx
 

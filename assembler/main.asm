@@ -1,15 +1,16 @@
 format ELF64 
 public _start
 
-extrn gcd
-extrn exit
-extrn endl
-extrn print_number
-extrn print_string
+include "asmlib/io.inc"
+include "asmlib/sys.inc"
 
 section '.text' executable
-msg db "Linker and assembler is working!", 0x0
+fmt db "%s%s"
+msg1 db "Hello, ", 0x0
+msg2 db "World!", 0x0
 _start:
-	mov rax, msg
-	call print_string
+	push msg1
+	push msg2
+	mov rax, fmt
+	call printf
 	call exit

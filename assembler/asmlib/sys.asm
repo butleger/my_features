@@ -2,7 +2,6 @@ format ELF64
 
 public exit
 
-extrn print_string
 
 section '.exit' executable
 exit :
