@@ -3,14 +3,21 @@ public _start
 
 include "asmlib/io.inc"
 include "asmlib/sys.inc"
+include "asmlib/str.inc"
+include "asmlib/algo.inc"
+
+
+section '.data' writable
+array db 5,4,3,2,1
+array_size = 5
 
 section '.text' executable
 fmt db "%s%s"
-msg1 db "Hello, ", 0x0
-msg2 db "World!", 0x0
+first db 1
+second db 2
 _start:
-	push msg1
-	push msg2
-	mov rax, fmt
-	call printf
+	mov rax, array
+	mov rbx, array_size
+	call bubble_sort
+	call print_bytes
 	call exit

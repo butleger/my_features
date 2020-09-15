@@ -4,7 +4,7 @@ DELETE= rm -rf
 LD = ld 
 LDFLAGS = -o
 LIB = asmlib
-SRC = main.asm $(LIB)/math.asm $(LIB)/io.asm $(LIB)/sys.asm $(LIB)/str.asm
+SRC = main.asm $(LIB)/math.asm $(LIB)/io.asm $(LIB)/sys.asm $(LIB)/str.asm $(LIB)/algo.asm
 SRC_SUFF = asm
 EXEC_NAME = main
 

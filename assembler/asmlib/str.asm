@@ -4,6 +4,7 @@ public number_to_string
 public reverse_string
 public strlen
 
+include "macro.m"
 
 section '.strlen'
 ;|input:
@@ -35,9 +36,7 @@ strlen:
 section '.number_to_string' executable
 number_to_string:
 
-	push rbx
-	push rcx
-	push rdx
+	push_bcd
 
 	xor rcx, rcx
 	mov rdi, 10
@@ -70,9 +69,7 @@ number_to_string:
 	.return:
 		mov byte [rax + rbx], 0
 
-		pop rdx
-		pop rcx
-		pop rbx
+		pop_dcb
 
 		ret
 
@@ -83,9 +80,7 @@ number_to_string:
 ; rax = string
 section '.reverse_string' executable
 reverse_string:
-	push rbx
-	push rcx
-	push rdx
+	push_bcd
 
 	mov rbx, rax 
 	call strlen
@@ -117,8 +112,5 @@ reverse_string:
 		jmp .next_iter 
 
 	.return:
-		pop rdx
-		pop rcx
-		pop rbx
-		
+		pop_dcb
 		ret  

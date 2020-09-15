@@ -4,12 +4,13 @@ public endl
 public printf
 public print_abcd
 public print_char
+public print_bytes
 public print_string
 public print_number
 public print_string_without_endl
 
 include "str.inc"
-
+include "macro.m"
 
 section '.bss' writable
 	bss_char rb 1
@@ -20,10 +21,9 @@ section '.printf' executable
 ;	rax = string(format)
 ;	stack = values
 printf:
-	push rax
-	push rbx
-	push rcx
-	push rdx
+	push_abcd
+	push rbp
+	mov rbp, rsp
 
 	.next_iter:
 		mov rbp, 16
@@ -54,22 +54,16 @@ printf:
 		.next_step:
 			jmp .next_iter
 	.close:
-		pop rdx
-		pop rcx
-		pop rbx
-		pop rax
+		pop rbp
+		pop_dcba
 		ret
-
 
 
 section '.print_number' executable
 ;| input
 ;rax = number
 print_number:
-	push rax
-	push rbx
-	push rcx
-	push rdx
+	push_abcd
 
 	xor rcx, rcx
 
@@ -89,15 +83,11 @@ print_number:
 		je .return
 		pop rax
 		call print_char
-		dec	rcx
+		dec rcx
 		jmp .print_iter
 
 	.return:
-		pop rdx
-		pop rcx
-		pop rbx
-		pop rax
-
+		pop_dcba		
 		ret
 
 
@@ -145,10 +135,7 @@ print_abcd:
 ;rax = string
 section '.print_string' executable
 print_string:
-	push rax
-	push rbx
-	push rcx
-	push rdx
+	push_abcd
 
 	mov rcx, rax
 	call strlen
@@ -159,10 +146,7 @@ print_string:
 
 	call endl
 
-	pop rdx
-	pop rcx
-	pop rbx
-	pop rax
+	pop_dcba
 
 	ret
 
@@ -171,10 +155,7 @@ section '.print_string_without_endl'
 ;| input 
 ;	rax = string
 print_string_without_endl:
-	push rax
-	push rbx
-	push rcx
-	push rdx
+	push_abcd
 
 	mov rcx, rax
 	call strlen
@@ -183,10 +164,7 @@ print_string_without_endl:
 	mov rbx, 1
 	int 0x80
 
-	pop rdx
-	pop rcx
-	pop rbx
-	pop rax
+	pop_dcba
 
 	ret
 
@@ -203,14 +181,9 @@ endl:
 
 section '.print_char' executable
 ;|input:
-;rax = char
+;	rax = char
 print_char:
-	
-	push rax
-	push rbx
-	push rcx
-	push rdx
-
+	push_abcd
 	mov [bss_char], al
 
 	mov rax, 4
@@ -219,9 +192,28 @@ print_char:
 	mov rdx, 1
 	int 0x80
 
-	pop rdx
-	pop rcx
-	pop rbx
-	pop rax
-
+	pop_dcba
 	ret
+
+
+section '.print_bytes' executable
+;|input:
+;	rax = array
+;	rbx = size
+print_bytes:
+	push_abc
+	mov rcx, rax
+	xor rax,rax
+	.next_iter:
+		cmp rbx, 0
+		je .close
+		mov al, [rcx]
+		inc rcx
+		call print_number
+		dec rbx
+		mov al, ' '
+		call print_char 
+		jmp .next_iter
+	.close:
+		pop_cba
+		ret

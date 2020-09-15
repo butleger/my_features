@@ -4,3 +4,5 @@ extrn print_char
 extrn print_string
 extrn print_number
 extrn printf
+extrn print_bytes
+extrn endl
