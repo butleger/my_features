@@ -6,3 +6,5 @@ extrn print_number
 extrn printf
 extrn print_bytes
 extrn endl
+extrn input_string
+extrn input_number

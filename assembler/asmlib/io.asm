@@ -5,6 +5,8 @@ public printf
 public print_abcd
 public print_char
 public print_bytes
+public input_string
+public input_number
 public print_string
 public print_number
 public print_string_without_endl
@@ -13,8 +15,42 @@ include "str.inc"
 include "macro.m"
 
 section '.bss' writable
+	_buffer_size equ 22
+	_buffer_for_number rb _buffer_size
 	bss_char rb 1
 
+
+section '.input_number' executable
+; |output:
+;	rax = number
+input_number:
+	push rbx
+	mov rax, _buffer_for_number
+	mov rbx, _buffer_size
+	call input_string
+	call strlen
+	mov rbx, _buffer_for_number
+	mov [rbx + rax - 1],byte 0
+	mov rax, _buffer_for_number
+	call string_to_number
+	pop rbx
+	ret
+
+
+section '.input_string' executable
+; |input:
+;	rax = buffer
+;	rbx = buffer size
+input_string:
+	push_abcd
+	mov rdx, rbx
+	mov rcx, rax
+	mov rax, 3; input interruption
+	mov rbx, 2; stdin
+	int 0x80
+	mov [rcx + rax + 1], byte 0
+	pop_dcba
+	ret
 
 section '.printf' executable
 ;|input;

@@ -1,10 +1,12 @@
 format ELF64
 
 public number_to_string
+public string_to_number
 public reverse_string
 public strlen
 
 include "macro.m"
+include "io.inc"
 
 section '.strlen'
 ;|input:
@@ -114,3 +116,31 @@ reverse_string:
 	.return:
 		pop_dcb
 		ret  
+
+
+section '.string_to_number' executable
+; |input
+;	rax = string
+; |output:
+;	rax = number
+string_to_number:
+	push_bcd
+	
+	mov rcx, rax
+	xor rax, rax; here will be chars
+	xor rbx, rbx; counter
+	xor rdx, rdx; result
+	.next_iter:
+		cmp [rcx + rbx], byte 0
+		je .close
+		mov al, [rcx + rbx]
+		sub al, '0'
+		imul rdx, 10
+		add dl, al
+		inc rbx
+		jmp .next_iter
+	.close:
+		mov rax, rdx
+		pop_dcb
+		ret
+
