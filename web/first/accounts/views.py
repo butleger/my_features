@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.views.generic import TemplateView
 from django.urls import reverse
 from .forms import AuthWithRememberingSession
-from articles.base import BlogBaseContextMixin
+from articles.base import BlogBaseContextMixin, BaseBlogView
 from django.http import HttpResponseRedirect
 
 
