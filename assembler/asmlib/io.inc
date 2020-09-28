@@ -8,3 +8,4 @@ extrn print_bytes
 extrn endl
 extrn input_string
 extrn input_number
+extrn input_char

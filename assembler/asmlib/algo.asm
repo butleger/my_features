@@ -1,16 +1,58 @@
 format ELF64
 
 public bubble_sort
+public dw_rand
+public q_srand
 
 include "io.inc" 
 include "macro.m"
 
+
+section '.data' writable
+seed dq 1; usnig in q_srand and in q_rand	
+_next dq 1; using in dw_rand
+
+
+section '.q_srand' executable
+; in:
+;	rax = seed(quad)
+q_srand:
+	mov [seed], rax
+	ret
+
+
+section '.dw_rand' executable
+; out:
+;	rax = random number(double word)
+dw_rand:
+	push rbx
+	push rdx
+	xor rbx, rbx
+	mov rax, [_next]
+	mov rbx, 1103515245
+	mul rbx
+	mov rbx, 12345
+	add rax, rbx
+	mov [_next], rax
+	xor rdx, rdx
+	mov rbx, 65536
+	div rbx
+	mov rbx, 32568
+	xor rdx, rdx
+	div rbx
+	mov rax, rdx
+	xor rdx, rdx
+	pop rdx
+	pop rbx
+	ret
+
+
 section '.bubble_sort' executable
-; |input:
+; in:
 ;	rax = array(bytes)
 ;	rbx = size
 ; this function will sort massive in his own buffer
-; |output:
+; out:
 ;	rax = sorted array
 bubble_sort:
 	push_abcd

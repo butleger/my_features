@@ -4,6 +4,7 @@ public endl
 public printf
 public print_abcd
 public print_char
+public input_char
 public print_bytes
 public input_string
 public input_number
@@ -18,6 +19,21 @@ section '.bss' writable
 	_buffer_size equ 22; used in input_number
 	_buffer_for_number rb _buffer_size; used in input_number 
 	bss_char rb 1; used in print_char
+	_char rb 2; used in input_char
+
+section '.input_char' executable
+; out:
+;	rax = char
+input_char:
+	push_bcd
+	mov rax, 3; read interruption
+	mov rbx, 2; STD_IN
+	mov rcx, _char
+	mov rdx, 1
+	int 0x80
+	pop_cba
+	mov al,[_char]
+	ret 
 
 
 section '.input_number' executable

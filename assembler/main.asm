@@ -13,9 +13,13 @@ buffer db buffer_size
 
 section '.text' executable
 _start:
-	mov rax, buffer
-	mov rbx, buffer_size 
-	call input_number
-	call rec_factorial
+	call dw_rand
 	call print_number
+	call endl
+	call dw_rand
+	call print_number
+	call endl
+	call dw_rand
+	call print_number
+	call endl
 	call exit
