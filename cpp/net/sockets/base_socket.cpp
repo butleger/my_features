@@ -18,6 +18,7 @@ BaseSocket::BaseSocket(	string addr,
 	if (port >= 65535 || port < 1)
 		throw new std::invalid_argument("Bad port!");
 	this->port = port;
+	this->addr.sin_port = htons(port);
 }
 
 BaseSocket::~BaseSocket()
