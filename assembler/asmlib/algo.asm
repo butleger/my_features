@@ -7,7 +7,7 @@ include "macro.m"
 
 section '.bubble_sort' executable
 ; |input:
-;	rax = array
+;	rax = array(bytes)
 ;	rbx = size
 ; this function will sort massive in his own buffer
 ; |output:
@@ -16,19 +16,19 @@ bubble_sort:
 	push_abcd
 	
 	;xor rbx, rbx
-	dec rbx
+	dec rbx; to reject overflow
 	xor rcx, rcx; i
 	xor rdx, rdx; j 
 	.next_iter:
 		cmp rcx, rbx
 		je .close
 		.inner_loop:
-			cmp rdx, rbx
+			cmp rdx, rbx; if rdx != size
 			je .end_inner_loop
 				
 			push rcx
 			mov cl, [rax + rdx]
-			cmp cl,byte [rax + rdx + 1]
+			cmp cl,byte [rax + rdx + 1]; if a[i] > a[i + 1]
 			jg .swap
 			jmp .no_swap
 			
