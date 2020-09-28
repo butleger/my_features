@@ -6,39 +6,14 @@
 class ServerTCPSocket: 
 	public BaseTCPSocket
 {
-private:
+protected:
 	int clientSocket = -1;
 public:
-	ServerTCPSocket(string addr, size_t port):
-		BaseSocket(addr, port)
-	{
-		bind(this->_socket, (struct sockaddr*)&(this->addr), sizeof(this->addr));	
-	}
 	
-	void runSocket(size_t que_size)
-	{
-		listen(this->_socket, que_size);
-		clientSocket = accept(this->_socket, NULL, NULL);
-	}
-
-	string recv() override
-	{
-		if ( clientSocket == -1)
-		{
-			throw new std::invalid_argument("Dont accept some connections!");
-		}
-		char buffer[1024];
-		read(clientSocket, buffer, 1024);
-		return string(buffer);
-	}
-
-	void send(string msg) override
-	{
-		msg[msg.size()] = '\0';
-		write(clientSocket, msg.c_str(), msg.size());
-	}
-
-
+	ServerTCPSocket(string addr, size_t port, size_t bufferSize=1024);
+	void runSocket(size_t que_size = 2);
+	string recv(int flags = NULL) override;
+	void send(string msg, int flags) override;
 };
 
 #endif // SERVER_TCP_SOCKET_H

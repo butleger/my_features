@@ -3,15 +3,11 @@
 
 #include "base_tcp_socket.h"
 
-class ClientSocket:
+class ClientTCPSocket:
 	public BaseTCPSocket
 {
 public:
-	ClientSocket(string remoteAddr, size_t port):
-		BaseTCPSocket(remoteAddr, port)
-	{
-		connect(this->_socket, (struct sockaddr*)&this->addr, sizeof(this->addr));
-	}
+	ClientTCPSocket(string remoteAddr, size_t port, size_t bufferSize = 1024);
 };
 
 #endif // CLIENT_TCP_SOCKET_H
