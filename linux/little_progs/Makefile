@@ -1,6 +1,6 @@
 CC=gcc
 CC_FLAGS = -O3
-SRC=rot.c my_cat.c
+SRC=cd.c rot.c my_cat.c
 BIN_DIR=bin
 
 
@@ -15,6 +15,9 @@ endef
 
 
 all: $(basename $(SRC))
+
+cd: cd.c
+	@$(call compile_file,$^)
 
 rot: rot.c
 	@$(call compile_file,$^)
