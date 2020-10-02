@@ -4,6 +4,7 @@ from .models import *
 
 def getMenu():
     try:
+        print(10*"=" + "MENU" + 10*"=")
         menu = MainMenuElementModel.objects.all()
     except ObjectDoesNotExist:
         raise CantGetMenu()
@@ -15,6 +16,7 @@ def getMenu():
 
 def getFooter():
     try:
+        print(10*"=" + "FOOTER" + 10*"=")
         result = {}
         footerBlocks = FooterBlockModel.objects.all()
         allFooterContent = FooterContentModel.objects.all()

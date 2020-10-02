@@ -1,22 +1,27 @@
-from django.shortcuts import render
+import os
+from django.urls import reverse
 from articles.db_getters import *
 from articles.exceptions import *
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView
+from .forms import AuthWithRememberingSession
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth import logout, login, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.views.generic import TemplateView
-from django.urls import reverse
-from .forms import AuthWithRememberingSession
 from articles.base import BlogBaseContextMixin, BaseBlogView
-from django.http import HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
-class MyLoginView(LoginView, BlogBaseContextMixin):
+# dir where will be stored all registration templates
+REGISTRATION_DIR = "registration"
+
+
+class MyLoginView(BlogBaseContextMixin, LoginView):
     #form should have field 'remember_me'
     #if form have not remove post function in this class
     form_class = AuthWithRememberingSession
     success_redirect_name = 'accounts:success_login'
-    template_name = 'registration\\login.html'
+    template_name = os.path.join(REGISTRATION_DIR, 'login.html')
 
     def get_redirect_url(self):
         return reverse(self.success_redirect_name)
@@ -30,8 +35,8 @@ class MyLoginView(LoginView, BlogBaseContextMixin):
         return super().post(request, *args, **kwargs)
 
 
-class MySuccessLoginView(BaseBlogView, TemplateView):
-    template_name = 'registration\\success_login.html'
+class MySuccessLoginView(BaseBlogView):
+    template_name = os.path.join(REGISTRATION_DIR, 'success_login.html')
 
 
 class MyLogoutView(BaseBlogView, LogoutView):
@@ -39,8 +44,8 @@ class MyLogoutView(BaseBlogView, LogoutView):
 
 
 class MyRegistrationView(BaseBlogView):
-    template_name = 'registration\\registration_form.html'
-    success_url = reverse('accounts:success_registration')
+    template_name = os.path.join(REGISTRATION_DIR, 'registration_form.html')
+    success_url = 'success_login/' #  reverse('accounts:success_registration')
     extra_context = {
         'create_user_form': UserCreationForm(),
     }
@@ -56,7 +61,7 @@ class MyRegistrationView(BaseBlogView):
 
 
 class MySuccessRegistrationView(BaseBlogView):
-    template_name = 'registration\\registration_complete.html'
+    template_name = os.path.join(REGISTRATION_DIR, 'registration_complete.html')
 
 
 def registrate(request):
@@ -64,17 +69,20 @@ def registrate(request):
     footer = getFooter()
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
+        registration_form_template_path = os.path.join(REGISTRATION_DIR, 'registration_form.html')
+        registration_complete_template_path = os.path.join(REGISTRATION_DIR, 'registration_complete.html')
         if form.is_valid():
             form.save()
-            return render(request, 'registration\\registration_complete.html', {'menu': menu,
-                                                                                'footer': footer})
+            return render(request, registration_complete_template_path, {'menu': menu,
+                                                                         'footer': footer})
         else:
-            return render(request, 'registration\\registration_form.html', {'create_user_form': form,
-                                                                            'menu': menu,
-                                                                            'footer': footer})
+            return render(request, registration_form_template_path, {'create_user_form': form,
+                                                                     'menu': menu,
+                                                                     'footer': footer})
     else:
+        registration_form_template_path = os.path.join(REGISTRATION_DIR, 'registration_form.html')
         userCreationForm = UserCreationForm()
-        return render(request, 'registration\\registration_form.html', {'create_user_form': userCreationForm,
+        return render(request, registration_form_template_path, {'create_user_form': userCreationForm,
                                                                         'menu': menu,
                                                                         'footer': footer})
 

@@ -61,9 +61,20 @@ class BlogBaseContextMixin(ContextMixin):
 
     def get_context_data(self, **kwargs):
         if self.base_context is not None:
-            self.extra_context.update(**self.base_context)
+            if self.extra_context is not None:
+                self.extra_context.update(**self.base_context)
         return super().get_context_data(**kwargs)
 
-class BaseBlogView(TemplateView, BlogBaseContextMixin):
+class BaseBlogView(BlogBaseContextMixin, TemplateView):
     #should define template_name in next classes
+#    base_context = {
+#        'footer': getFooter(),
+#        'menu': getMenu(),
+#    }
+
+#    def get_context_data(self, **kwargs):
+#        if self.base_context is not None:
+#            if self.extra_context is not None:
+#                self.extra_context.update(**self.base_context)
+#        return super().get_context_data(**kwargs)
     pass
