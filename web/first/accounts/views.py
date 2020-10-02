@@ -86,27 +86,4 @@ def registrate(request):
                                                                         'menu': menu,
                                                                         'footer': footer})
 
-def log_in(request):
-    menu = getMenu()
-    footer = getFooter()
-    if request.method == 'POST':
-        form = AuthenticationForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return render(request, 'registration\\success_login.html', {'menu': menu,
-                                                                        'footer': footer})
-        else:
-            error = 'There is no user with such password and name'
-            return render(request, 'registration\\login.html', {'menu': menu,
-                                                                'footer': footer,
-                                                                'form': form,
-                                                                'errors': error})
-    else:
-        form = AuthenticationForm()
-        return render(request, 'registration\\login.html', {'menu': menu,
-                                                            'footer': footer,
-                                                            'form': form})
 # Create your views here.
