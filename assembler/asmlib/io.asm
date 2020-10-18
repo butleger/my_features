@@ -143,12 +143,13 @@ print_number:
 		pop_dcba		
 		ret
 
-
-section '.print_abcd'
+section '.abcd_data'
 str_a db "a = ", 0
 str_b db "b = ", 0
 str_c db "c = ", 0
 str_d db "d = ", 0
+
+section '.print_abcd' executable
 print_abcd:
 	push rax
 
@@ -202,7 +203,7 @@ print_string:
 	ret
 
 
-section '.print_string_without_endl'
+section '.print_string_without_endl' executable
 ; in:
 ;	rax = string
 print_string_without_endl:

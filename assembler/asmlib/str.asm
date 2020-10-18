@@ -8,7 +8,7 @@ public strlen
 include "macro.m"
 include "io.inc"
 
-section '.strlen'
+section '.strlen' executable
 ; in:
 ;	rax = string
 ; out: 
