@@ -9,27 +9,17 @@
 #include <string.h>
 
 
-void doMainProcShit(int child_pid)
+void print_shit_and_pid(int fd, int pid)
 {
-	printf("This is Main Process, sub process have pid = %d!\n", child_pid);
-	printf("Start waiting!\n");
-	printf("Get resulting: %d", waitpid(child_pid, NULL, NULL));
-	exit(0);
-}
-
-void doSubProcShit()
-{
-	int shit;
-	printf("This is sub proccess!\n");
-	printf("Start sleeping!\n");
-	scanf("%d", &shit);
-	exit(0);
+	char shit[30];
+	sprintf(shit, "Shit!(also pid = %d)\n", pid); 
+	write(fd, shit, strlen(shit));
 }
 
 int main(int c, char **val)
 {
 	int pid;
-	int log = open(val[1], O_CREAT|O_WRONLY);
+	int log;
 	char buff[] = "File was open and i write into it!\n";
 	if (c < 2)
 	{
@@ -51,9 +41,23 @@ int main(int c, char **val)
 	{
 		umask(0);
 		setsid();
+		//chdir("/");
+		log = open(val[1], O_WRONLY|O_CREAT);
+		if (log < 0)
+		{
+			exit(-1);
+		}
+		close(STDIN_FILENO);
+		close(STDIN_FILENO);
+		close(STDIN_FILENO);
+		print_shit_and_pid(log, pid);
+		close(log);
+		return 0;
 	}
-	write(log, buff, strlen(buff));
-	close(log);
-	return 0;
+	else 
+	{
+		printf("Main process has ended!\n");
+		return 0;
+	}
 }
 
