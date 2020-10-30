@@ -1,6 +1,6 @@
 CC=gcc
 CC_FLAGS = -O3
-SRC=cd.c rot.c my_cat.c
+SRC=cd.c rot.c my_cat.c headers.c
 BIN_DIR=bin
 
 
@@ -23,6 +23,9 @@ rot: rot.c
 	@$(call compile_file,$^)
 
 my_cat: my_cat.c
+	@$(call compile_file,$^)
+
+headers: headers.c
 	@$(call compile_file,$^)
 
 clean:
