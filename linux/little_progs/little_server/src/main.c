@@ -8,9 +8,9 @@
 #include <string.h>
 #include <signal.h>
 #include <wait.h>
-#include "config_def.h"
-#include "http_work.h"
-#include "socket_work.h"
+#include "../headers/config_def.h"
+#include "../headers/http_work.h"
+#include "../headers/socket_work.h"
 
 
 int server_sock = -1;
