@@ -5,80 +5,15 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <netdb.h>
-#include <sys/stat.h>
 #include <string.h>
 #include <signal.h>
-#include <sched.h>
 #include <wait.h>
+#include "config_def.h"
+#include "http_work.h"
+#include "socket_work.h"
 
 
-#define DIR_ROOT "www"
-#define PORT 3333
-#define SERVER_ADDR "127.0.0.1"
-#define true 1
 int server_sock = -1;
-
-
-void close_connection(int sock)
-{
-	shutdown(sock, SHUT_RDWR);
-	close(sock);
-}
-
-int get_size_of_file(const char *filename)
-{
-	struct stat file_stat;
-	if ( stat(filename, &file_stat) < 0 )
-		return -1;
-	else 
-		return file_stat.st_size;
-}
-
-char *make_response(const char *request, char *out)
-{
-	return out;
-}
-
-void connection_worker(int client_sock, struct sockaddr_in client_addr)
-{
-	char msg[50];
-	sprintf(msg, "Hello, %s!\n", inet_ntoa(client_addr.sin_addr));
-	send(client_sock, msg, strlen(msg), NULL);
-	close_connection(client_sock);
-	return;
-}
-
-void async_connection_worker(int client_sock, struct sockaddr_in client_addr)
-{
-	void fatal_and_close(char *msg, int sock);
-	pid_t new_pid = 0;
-	
-	if ((new_pid = fork()) > 0) // parent process
-		return;
-	else if (new_pid == 0) // child process
-	{
-		connection_worker(client_sock, client_addr);
-		exit(0);
-	}
-	else // error
-		fatal_and_close("Error in async_connection_worker!", client_sock);
-	return;
-}
-
-void fatal(char *msg)
-{
-	if (server_sock != -1)
-		close_connection(server_sock);
-	printf("%s\n", msg);
-	exit(-1);
-}
-
-void fatal_and_close(char *msg, int sock)
-{
-	close_connection(sock);
-	fatal(msg);
-}
 
 void sigint_handler(int signo)
 {
@@ -113,7 +48,7 @@ int main(int c, char **v)
 	server_addr.sin_port = htons(PORT);
 	inet_aton(SERVER_ADDR, (struct in_addr*)&server_addr.sin_addr );
 	
-	if ( setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) )
+	if ( setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) < 0 )
 		fatal("Cant make server addr reusable!");
 
 	if ( bind(server_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0 )

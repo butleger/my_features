@@ -1,0 +1,13 @@
+Log file opened and looks like all going good!
+response:
+è$‰¾HTTP/1.1 404 NOT FOUND
+Server: shitty_server
+
+<html>
+	<head>
+		<title>404 Not Found</title>
+	</head>
+	<body>
+404 Not Found<br>
+	</body>
+</html>
