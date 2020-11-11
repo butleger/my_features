@@ -7,6 +7,7 @@
 #include <string.h>
 #include <unistd.h>
 
+
 #define HTTP_PORT 80
 
 void bad_exit(const char *msg)
@@ -19,6 +20,8 @@ void bad_exit(const char *msg)
 void print_domain_info(struct hostent *host)
 {
 	int i = -1;
+
+
 	printf("Name of machine: \"%s\"\n", host->h_name);
 	if (host->h_aliases[0]) // if domain have aliases print them else no
 		printf("Aliases :\n");

@@ -7,16 +7,14 @@
 #include <sys/stat.h>
 
 
-void no_file(const char *filename)
+void printFilesByNames(const char **filenames, int qtty)
 {
-	printf("%s: no such file!\n", filename);
-	exit(-1);
-}
-
-void bad_exit(const char *msg)
-{
-	printf("%s\n", msg);
-	exit(-1);
+	int i = 0;
+	for (i = 0; i < qtty; ++i)
+	{
+		printFileByName(filenames[i]);
+		printf("\n");
+	}
 }
 
 void printFileByName(char *filename)
@@ -39,20 +37,23 @@ void printFile(int fd)
 		write(1, &buf, 1);	
 }
 
+void no_file(const char *filename)
+{
+	printf("%s: no such file!\n", filename);
+	exit(-1);
+}
+
+void bad_exit(const char *msg)
+{
+	printf("%s\n", msg);
+	exit(-1);
+}
+
 void readAndPrint()
 {
 	printFile(2);
 }
 
-void printFilesByNames(const char **filenames, int qtty)
-{
-	int i = 0;
-	for (i = 0; i < qtty; ++i)
-	{
-		printFileByName(filenames[i]);
-		printf("\n");
-	}
-}
 
 
 int main(int c, char **val)
