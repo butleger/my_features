@@ -4,13 +4,13 @@ CFLAGS= $()
 DELETE= rm -rf
 LD = ld 
 LDFLAGS = -o
-LIB_PATH = asmlib# path to libs
+LIB_PATH = asmlib # path to libs
 MAIN_FILE = main.asm
-EXEC_NAME = main
+EXEC_NAME = $(basename $(EXEC_NAME)) # remove extension from MAIN_FILE
 LIBS = $(addprefix $(LIB_PATH)/, math.asm io.asm sys.asm str.asm algo.asm)
 
 
-all: link# run main file
+all: link # run main file
 	@./$(EXEC_NAME)
 
 link: main libs 
