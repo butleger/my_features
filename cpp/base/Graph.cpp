@@ -1,5 +1,6 @@
 #include "Graph.h"
 
+
 void My::Graph::deleteGraphAndNullingVertex()
 {
 	deleteMatrix(graph, vertex);

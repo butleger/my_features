@@ -3,11 +3,12 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
+
 namespace My 
 {
+	typedef unsigned char BYTE;
 	typedef unsigned int WORD;
 	typedef unsigned long int DWORD;
-	typedef unsigned char BYTE;
 
 	#define NO_SIZE 0
 	#define ONE_NODE 1

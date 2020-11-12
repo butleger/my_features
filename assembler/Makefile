@@ -6,7 +6,7 @@ LD = ld
 LDFLAGS = -o
 LIB_PATH = asmlib # path to libs
 MAIN_FILE = main.asm
-EXEC_NAME = $(basename $(EXEC_NAME)) # remove extension from MAIN_FILE
+EXEC_NAME = $(basename $(MAIN_FILE)) # remove extension from MAIN_FILE
 LIBS = $(addprefix $(LIB_PATH)/, math.asm io.asm sys.asm str.asm algo.asm)
 
 

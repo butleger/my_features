@@ -1,20 +1,25 @@
 import os
 from django.urls import reverse
-from articles.db_getters import *
-from articles.exceptions import *
+from base.db_getters import *
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from .forms import AuthWithRememberingSession
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth import logout, login, authenticate
-from articles.base import BlogBaseContextMixin, BaseBlogView
+from base.view import BlogBaseContextMixin, BaseBlogView
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 # dir where will be stored all registration templates
 REGISTRATION_DIR = "registration"
 
+
+class MyLoginTestView(BaseBlogView):
+    template_name = os.path.join(REGISTRATION_DIR, 'login.html')
+    extra_context = {
+        'form': AuthWithRememberingSession()
+    }
 
 class MyLoginView(BlogBaseContextMixin, LoginView):
     #form should have field 'remember_me'

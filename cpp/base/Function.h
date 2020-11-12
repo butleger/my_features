@@ -20,6 +20,7 @@ namespace My
 		};
 	};
 
+
 	template <typename ValueType>
 	class Greater
 	{

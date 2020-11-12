@@ -3,7 +3,7 @@ import datetime
 from .db_getters import *
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
-from .base import BaseBlogView, BaseAjaxWorker
+from base.view import BaseBlogView, BaseAjaxWorker
 from .forms import AddArticleForm, AddCommentForm
 from django.utils.decorators import classonlymethod
 from django.contrib.auth.decorators import login_required
