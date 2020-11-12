@@ -25,8 +25,12 @@ bool_t is_file_exist(const char *request);
 int get_size_of_file(const char *filename);
 char *get_response_filename_unsafe(const char *request, char *out);
 char *get_response_filename(const char *request, char *out);
+char *get_200_response_header();
+char *get_404_response_header();
+char *get_error_404_filename();
+char *get_base_filename();
 char *make_headers(char *out, const char *request);
-char *make_404_headers(char *out);
+char *make_404_headers(const char* request, char *out);
 char *make_200_headers(const char *request, char *out);
 
 #endif // HTTP_WORK_H

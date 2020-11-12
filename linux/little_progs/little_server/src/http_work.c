@@ -1,5 +1,46 @@
 #include "../headers/http_work.h"
 
+/*
+ * _200_RESPONSE_HEADER, _404_RESPONSE_HEADER you can find in http_work.h 
+ * also so many get functions used to make program more extensive
+ */
+
+char *make_headers(char *out, const char *request)
+{
+	if (is_correct_request(request))
+		return make_200_headers(request, out);
+	else 
+		return make_404_headers(request, out);
+}
+
+char *make_404_headers(const char* request, char *out)
+{
+	char *_404_response_headers;
+
+	_404_response_headers = get_404_response_header();
+	strncat(out, get_404_response_header(), strlen(_404_response_headers)); 
+	return out;
+}
+
+char *get_404_response_header()
+{
+	return _404_RESPONSE_HEADER;
+}
+
+char *make_200_headers(const char *request, char *out)
+{
+	char *_200_response_headers;
+
+	_200_response_headers = get_200_response_header();
+	strncat(out, get_200_response_header(), strlen(_200_response_headers));
+	return out;
+}
+
+char *get_200_response_header()
+{
+	return _200_RESPONSE_HEADER;
+}
+
 bool_t is_correct_request(const char *request)
 {
  // there are so many if`s because bad request can break logic in next check-functions
@@ -7,11 +48,11 @@ bool_t is_correct_request(const char *request)
 		if (is_get_request(request))
 			if (is_file_exist(request))
 				return true;
-			else // is_file_exist
+			else // file not exist
 				return false;
-		else // is_get_request
+		else // not a get request
 			return false;
-	else // is_normal_request_size
+	else // not a normal request size
 		return false;  
 }
 
@@ -38,7 +79,6 @@ bool_t is_file_exist(const char *request)
 	char filename[50];
 
 	get_response_filename_unsafe(request, filename);
-	printf("trying to find file(is_file_exist) :%s\n", filename);
 	if (www_dir == 0)
 		return false;
 	else
@@ -63,55 +103,49 @@ int get_size_of_file(const char *filename)
 		return file_stat.st_size;
 }
 
-char *get_response_filename_unsafe(const char *request, char *out)
-{
-	const int offset_before_file = 5; // "GET /" = 5 symbols
-	int i = -1;
-
-	if (request[offset_before_file] == ' ')
-	{
-		sprintf(out, "%s", BASE_FILE); // base file
-		out[strlen(BASE_FILE)] = '\0';
-		return out;
-	}
-	else
-	{
-		while( request[offset_before_file + (++i)] != ' ' ) // just read 1 word after /
-			out[i] = request[offset_before_file + i];
-		out[i] = '\0';
-		return out;
-	} 
-		
-}
-
 char *get_response_filename(const char *request, char *out)
 {
+	char *error_404_filename;
+
+	error_404_filename = get_error_404_filename();
 	if (!is_correct_request(request))
 	{
-		sprintf(out, ERROR_404_FILE); // 404 response file
-		out[strlen(ERROR_404_FILE)] = '\0';
+		sprintf(out, error_404_filename); // 404 response file
+		out[strlen(error_404_filename)] = '\0';
 		return out;
 	}
 	else 
 		return get_response_filename_unsafe(request, out);
 }
 
-char *make_headers(char *out, const char *request)
+char *get_error_404_filename()
 {
-	if (is_correct_request(request))
-		return make_200_headers(request, out);
-	else 
-		return make_404_headers(out);
+	return ERROR_404_FILENAME;
 }
 
-char *make_404_headers(char *out)
+char *get_response_filename_unsafe(const char *request, char *out)
 {
-	strncat(out, _404_RESPONSE_HEADER, strlen(_404_RESPONSE_HEADER));
-	return out;
+	char *base_filename;
+	int offset_before_file = 5; // "GET /" = 5 symbols
+	int i = -1;
+
+	base_filename = get_base_filename();
+	if (request[offset_before_file] == ' ')
+	{
+		sprintf(out, "%s", base_filename); // base file
+		out[strlen(base_filename)] = '\0';
+		return out;
+	}
+	else
+	{
+		while( request[ offset_before_file + (++i) ] != ' ' ) // just read 1 word after /
+			out[i] = request[offset_before_file + i];
+		out[i] = '\0';
+		return out;
+	} 
 }
 
-char *make_200_headers(const char *request, char *out)
+char *get_base_filename()
 {
-	strncat(out, _200_RESPONSE_HEADER, strlen(_200_RESPONSE_HEADER));
-	return out;
+	return BASE_FILENAME;
 }

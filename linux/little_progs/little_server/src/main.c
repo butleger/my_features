@@ -39,8 +39,8 @@ int main(int c, char **v)
 
 	signal(SIGCHLD, sigchld_handler);
 	signal(SIGINT, sigint_handler);
-	server_sock = socket(AF_INET, SOCK_STREAM, NULL);
 	
+	server_sock = socket(AF_INET, SOCK_STREAM, (int)NULL);
 	if (server_sock < 0)
 		fatal("Cant make socket!");
 	
@@ -66,5 +66,6 @@ int main(int c, char **v)
 		async_connection_worker(client_sock, client_addr);
 		close(client_sock);
 	}
+
 	return 0;
 }
