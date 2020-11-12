@@ -18,7 +18,7 @@ char *make_404_headers(const char* request, char *out)
 	char *_404_response_headers;
 
 	_404_response_headers = get_404_response_header();
-	strncat(out, get_404_response_header(), strlen(_404_response_headers)); 
+	strncat(out, _404_response_headers, strlen(_404_response_headers)); 
 	return out;
 }
 
@@ -32,7 +32,7 @@ char *make_200_headers(const char *request, char *out)
 	char *_200_response_headers;
 
 	_200_response_headers = get_200_response_header();
-	strncat(out, get_200_response_header(), strlen(_200_response_headers));
+	strncat(out, 200_response_headers, strlen(_200_response_headers));
 	return out;
 }
 
