@@ -87,16 +87,6 @@ section '.fwrite' executable
 ;	rcx = size of data
 fwrite:
 	push_abcd
-	
-	push rbx
-	push rcx
-
-	mov rbx, 1 
-	xor rcx, rcx
-	call fseek
-
-	pop rcx
-	pop rbx
 
 	mov rdx, rcx
 	mov rcx, rbx
