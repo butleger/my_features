@@ -6,6 +6,7 @@ public q_srand
 
 include "io.inc" 
 include "macro.m"
+include "const.m"
 
 
 section '.data' writable

@@ -14,6 +14,7 @@ public print_string_without_endl
 
 include "str.inc"
 include "macro.m"
+include "const.m"
 
 section '.bss' writable
 	_buffer_size equ 22; used in input_number
@@ -26,11 +27,11 @@ section '.input_char' executable
 ;	rax = char
 input_char:
 	push_bcd
-	mov rax, 3; read interruption
-	mov rbx, 2; STD_IN
+	mov rax, READ_INT_X32_NUM ; read interruption
+	mov rbx, STDIN ; STD_IN
 	mov rcx, _char
 	mov rdx, 1
-	int 0x80
+	_make32_syscall
 	pop_cba
 	mov al,[_char]
 	ret 
@@ -61,9 +62,9 @@ input_string:
 	push_abcd
 	mov rdx, rbx
 	mov rcx, rax
-	mov rax, 3; input interruption
-	mov rbx, 2; stdin
-	int 0x80
+	mov rax, READ_INT_X32_NUM; input interruption
+	mov rbx, STDIN; stdin
+	_make32_syscall
 	mov [rcx + rax + 1], byte 0
 	pop_dcba
 	ret
@@ -194,9 +195,9 @@ print_string:
 	mov rcx, rax
 	call strlen
 	mov rdx, rax
-	mov rax, 4; read interrupt
-	mov rbx, 1; STD_OUT
-	int 0x80
+	mov rax, READ_INT_X32_NUM; read interrupt
+	mov rbx, STDOUT; STD_OUT
+	_make32_syscall
 	call endl; end
 
 	pop_dcba
@@ -212,9 +213,9 @@ print_string_without_endl:
 	mov rcx, rax
 	call strlen
 	mov rdx, rax
-	mov rax, 4; write interruption
-	mov rbx, 1; STD_OUT
-	int 0x80
+	mov rax, WRITE_INT_X32_NUM; write interruption
+	mov rbx, STDOUT; STD_OUT
+	_make32_syscall
 
 	pop_dcba
 	ret
@@ -236,11 +237,11 @@ print_char:
 	push_abcd
 	mov [bss_char], al
 
-	mov rax, 4; write interrupt
-	mov rbx, 1; STD_OUT
+	mov rax, WRITE_INT_X32_NUM; write interrupt
+	mov rbx, STDOUT; STD_OUT
 	mov rcx, bss_char
 	mov rdx, 1
-	int 0x80
+	_make32_syscall
 
 	pop_dcba
 	ret

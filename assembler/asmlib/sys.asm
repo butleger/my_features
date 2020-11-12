@@ -11,6 +11,7 @@ public fread
 
 include "macro.m"
 include "io.inc"
+include "const.m"
 
 section '.data' executable
 	filename db 'test_file.txt', 0
@@ -28,8 +29,8 @@ fcreate:
 
 	mov rcx, rbx
 	mov rbx, rax
-	mov rax, 8; syscall of create
-	int 0x80
+	mov rax, CREAT_INT_X32_NUM; syscall of create
+	_make32_syscall
 	
 	pop rbx
 	pop rcx
@@ -41,9 +42,9 @@ section '.fdelete' executable
 ;	rax = filename
 fdelete:
 	push rbx
-	mov rax, 10; unlink syscall
+	mov rax, UNLINK_INT_X32_NUM; unlink syscall
 	mov rbx, rax
-	int 0x80
+	_make32_syscall
 	pop rbx
 	ret
 
@@ -60,8 +61,8 @@ fopen:
 
 	mov rcx, rbx
 	mov rbx, rax
-	mov rax, 5; open syscall
-	int 0x80
+	mov rax, OPEN_INT_X32_NUM; open syscall
+	_make32_syscall
 	
 	pop rcx
 	pop rbx
@@ -73,9 +74,9 @@ section '.fclose' executable
 ;	rax = descriptor
 fclose:
 	push rbx
-	mov rax, 6; close syscall
+	mov rax, CLOSE_INT_X32_NUM; close syscall
 	mov rbx, rax
-	int 0x80
+	_make32_syscall
 	pop rbx
 	ret
 
@@ -91,9 +92,8 @@ fwrite:
 	mov rdx, rcx
 	mov rcx, rbx
 	mov rbx, rax
-	mov rax, 4; write syscall
-	call print_abcd
-	int 0x80
+	mov rax, WRITE_INT_X32_NUM; write syscall
+	_make32_syscall
 
 	pop_dcba
 	ret
@@ -120,8 +120,8 @@ fread:
 	mov rdx, rcx
 	mov rcx, rbx
 	mov rbx, rax
-	mov rax, 3; write syscall
-	int 0x80
+	mov rax, READ_INT_X32_NUM; read syscall
+	_make32_syscall
 
 	pop_dcba
 	ret
@@ -141,8 +141,8 @@ fseek:
 
 	mov rcx, rbx
 	mov rbx, rax
-	mov rax, 19
-	int 0x80
+	mov rax, LSEEK_INT_X32_NUM
+	_make32_syscall
 
 	pop rdx
 	pop rbx
@@ -152,6 +152,6 @@ fseek:
 
 section '.exit' executable
 exit :
-	mov rax, 1
-	mov rbx, 0
-	int 0x80
+	mov rax, EXIT_INT_X32_NUM
+	mov rbx, GOOD_EXIT ; 0
+	_make32_syscall
