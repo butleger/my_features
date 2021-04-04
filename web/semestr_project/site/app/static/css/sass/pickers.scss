@@ -1,0 +1,36 @@
+/* CARDS */
+
+
+.card {
+    margin: 50px;
+    border: $default_border;
+    display: inline-block;
+    min-width: 500px;
+    max-width: 500px;
+    text-align: left;
+    padding: 25px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(30, 37, 30);
+    }
+
+    .title {
+        font-size: 15pt;
+        color: $base_main_font_color;
+    }
+
+    .subtitle {
+        color: $base_secondary_font_color;
+    }
+
+    .text {
+        margin-top: 10px;
+        font-size: 13pt;
+    }
+
+    .footer {
+        color: $base_light_font_color;
+        margin-top: 15px;
+    }
+}

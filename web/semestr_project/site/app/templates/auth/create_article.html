@@ -1,0 +1,35 @@
+{% extends "base/content_wrapper.html.j2" %}
+
+{% block content %}
+
+<div class="create_article_wrapper">
+
+  <div class="pre_message">
+    <span class="title">
+      There is your article!
+    </span>
+  </div>
+
+  <form class="form" method="POST" action="/auth/create_article">
+    {{ form.hidden_tag() }}
+    <div class="title_label_wrapper">
+      {{ form.title.label() }}
+    </div>
+    <div class="title_input_wrapper">
+      {{ form.title() }}
+    </div>
+
+    <div class="text_input_wrapper">
+      {{ form.article.label() }}
+    </div>
+    <div class="article_input_wrapper">
+      {{ form.article() }}
+    </div>
+    <div class="submit_input_wrapper">
+      {{ form.submit() }}
+    </div>
+  </form>
+
+</div>
+
+{% endblock %}

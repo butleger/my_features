@@ -1,0 +1,15 @@
+/* FORUM */
+
+
+.chat {
+    margin: 40px;
+    width: 95%;
+
+    .title{
+      font-size: 16pt;
+      margin-bottom: 30px;
+    }
+
+    @include make_message();
+    @include comment_form();
+}

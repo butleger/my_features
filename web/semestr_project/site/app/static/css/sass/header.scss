@@ -1,0 +1,47 @@
+/* HEADER */
+
+
+a:hover {
+    color: $ref_hover_color;
+}
+
+body {
+
+    >.header {
+        border-bottom: $default_border;
+        position: sticky;
+        top: 0px;
+        width: 100%;
+        background-color: $background_color;
+      }
+
+}
+
+
+
+/* NAVIGATION */
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+
+    .active {
+        color: yellow;
+        text-shadow: yellow 0 0 10px;
+        border-left: $default_border;
+        border-right: $default_border;
+        border-bottom: 2px solid black;
+    }
+
+    .elem {
+        font-size: 20px;
+        display: inline-block;
+        list-style: none;
+
+        a {
+            display: inline-block;
+            padding: 20px;
+            height: 100%;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{% extends "/base/content_wrapper.html.j2" %}
+{% block content %}
+
+<div class="login_form_wrapper">
+  <form class="form" action="/auth/login" method="POST">
+    <div class="login_wrapper">
+      {{ form.login.label() }}
+      {{ form.login() }}
+    </div>
+    <div class="pass_wrapper">
+      {{ form.password.label() }}
+      {{ form.password() }}
+    </div>
+    <div class="submit_wrapper">
+      {{ form.submit() }}
+    </div>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+/* HOME */
+
+
+.home {
+    padding: 30px;
+    background-color: $background_color;
+    display: inline-block;
+    border: $default_border;
+    margin: 40px;
+
+    .name {
+        font-size: 17pt;
+        color: $base_author_name_color;
+    }
+
+    .image {
+        margin: 30px;
+    }
+
+    .info {
+        font-size: 13pt;
+    }
+
+    .footer {
+        margin-top: 20px;
+        font-size: 11pt;
+        color: $base_light_font_color;
+    }
+}

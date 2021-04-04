@@ -1,0 +1,17 @@
+/* FOOTER */
+
+
+body
+{
+  >.footer {
+      text-align: center;
+      border-top: $default_border;
+
+      >.footer_elem {
+          padding: 10px;
+          display: inline-block;
+          font-size: 10pt;
+    }
+  }
+
+}
