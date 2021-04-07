@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request
 from config import config
+from flask_script import Manager
+from flask_migrate import MigrateCommand
 import datetime
 import os
 
 '''
 def create_app():
     app = Flask(__name__, static_folder="static", template_folder="templates")
-    app.config.from_object(config)
     register_blueprints(app)
+    app.config.from_object(config)
     return app
 
 
@@ -41,9 +43,13 @@ def create_app():
 
 
 def register_extensions(app):
+    from extensions import migrate
     from extensions import db
+    
     db.init_app(app)
     db.app = app
+    migrate.init_app(app, db)
+    migrate.app = app
     
 
 def register_blueprints(app):
@@ -59,7 +65,10 @@ def register_blueprints(app):
 
 
 app = create_app()
+app.debug = True
+
+manager = Manager(app)
+manager.add_command("migrations", MigrateCommand)
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run('127.0.0.1')
+    manager.run()

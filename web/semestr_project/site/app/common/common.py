@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, abort
-from common.views import *
+from common.controllers import RulesController
 
 
 common = Blueprint("common", __name__)
@@ -7,4 +7,4 @@ common = Blueprint("common", __name__)
 
 @common.route('/rules')
 def rules_wrapper():
-    return rules()
+    return RulesController.get_response()
