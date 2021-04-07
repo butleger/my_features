@@ -1,0 +1,73 @@
+/* LOGIN */
+
+
+@mixin login_wrapper() {
+  .login_wrapper {
+
+    label{
+      margin-top: 20px;
+      font-size: 12pt;
+      display: block;
+    }
+
+    .login_input{
+      margin: 20px;
+      margin-top: 5px;
+      padding: 10px;
+      border: $default_border;
+      background-color: $background_color;
+    }
+  }
+}
+
+
+@mixin password_wrapper() {
+  .pass_wrapper{
+
+    label{
+        margin-top: 20px;
+        font-size: 12pt;
+        display: block;
+    }
+
+    .password_input{
+        margin: 20px;
+        margin-top: 5px;
+        padding: 10px;
+        border: $default_border;
+        background-color: $background_color;
+    }
+  } // pass_wrapper
+}
+
+
+@mixin submit_wrapper() {
+  .submit_wrapper{
+
+    .submit_input{
+      margin: 20px;
+      margin-bottom: 0px;
+      padding: 10px;
+      border: $default_border;
+      background-color: $background_color;
+
+      &:hover{
+        background-color: rgb(45, 47, 45);
+      }
+    }
+  }
+}
+
+
+.login_form_wrapper{
+  margin-top: 30px;
+  display: inline-block;
+  border: $default_border;
+  padding: 30px;
+
+  .form {
+    @include login_wrapper();
+    @include password_wrapper();
+    @include submit_wrapper();
+  } // form
+} // form_wrapper

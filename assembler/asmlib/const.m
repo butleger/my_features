@@ -1,0 +1,40 @@
+STDERR equ 0
+STDOUT equ 1
+STDIN equ 2
+
+
+O_RDONLY equ 0
+O_WRONLY equ 1 
+O_RDWR equ 2
+
+
+GOOD_EXIT equ 0
+
+
+macro _make32_syscall 
+{
+	int 0x80 
+}
+macro _make64_syscall 
+{
+	syscall 
+}
+
+
+EXIT_INT_X32_NUM equ 1
+FORK_INT_X32_NUM equ 2
+READ_INT_X32_NUM equ 3
+WRITE_INT_X32_NUM equ 4
+OPEN_INT_X32_NUM equ 5
+CLOSE_INT_X32_NUM equ 6
+WAIT_PID_INT_X32_NUM equ 7
+CREAT_INT_X32_NUM equ 8
+UNLINK_INT_X32_NUM equ 10
+EXECVE_INT_X32_NUM equ 11
+TIME_INT_X32_NUM equ 13
+LSEEK_INT_X32_NUM equ 19
+GET_PID_INT_X32_NUM equ 20
+SOCKET_INT_X32_NUM equ 359
+BRK_INT_X32_NUM equ 45
+SET_SID_INT_X32_NUM equ 66
+GET_SID_INT_X32_NUM equ 147

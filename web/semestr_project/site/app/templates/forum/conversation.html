@@ -1,0 +1,135 @@
+{% extends "base/content_wrapper.html.j2" %}
+
+{% block content %}
+<div class="chat">
+    <div class="title">
+      <span>Title of conversation</span>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="message_wrapper">
+        <div class="author">
+            <div class="name">fedr_asshole@Ubuntu</div>
+        </div>
+        <div class="message">
+            <div class="text">you are fucking bad you are fucking badyou are fucking badyou are fucking badyou are fucking badyou are fucking bad</div>
+            <div class="description">recenetly</div>
+            <div class="like"><img src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+        </div>
+    </div>
+
+    <div class="chat_form_wrapper">
+      <form class="form" method="POST" action="/forum/123">
+        {{ form.hidden_tag() }}
+        <div class="shit">
+          <div class="text_input_wrapper">
+            {{ form.message() }}
+          </div>
+          <div class="submit_input_wrapper">
+            {{ form.submit() }}
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+
+{% endblock %}

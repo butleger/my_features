@@ -1,16 +1,21 @@
+import os
 import datetime
 from .db_getters import *
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
+from base.view import BaseBlogView, BaseAjaxWorker
 from .forms import AddArticleForm, AddCommentForm
 from django.utils.decorators import classonlymethod
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse, HttpResponseRedirect
-from .base import BaseBlogView, BaseAjaxWorker
+
+
+# variable that store dir where all html templates for nav menu
+NAVIGATE_MENU_DIR = "navigate_menu"
 
 
 class ArticlesView(BaseBlogView):
-    template_name = 'navigate_menu\\articles.html'
+    template_name = os.path.join(NAVIGATE_MENU_DIR, 'articles.html')
 
     extra_context = {
         'articles': getAllArticles(),
@@ -18,7 +23,7 @@ class ArticlesView(BaseBlogView):
 
 
 class AboutMeView(BaseBlogView):
-    template_name = 'navigate_menu\\about_me.html'
+    template_name = os.path.join(NAVIGATE_MENU_DIR, 'about_me.html')
 
     extra_context = {
         'text': getSingleArticleByName('About me').text
@@ -26,7 +31,7 @@ class AboutMeView(BaseBlogView):
 
 
 class ContactsView(BaseBlogView):
-    template_name = 'navigate_menu\\contacts.html'
+    template_name = os.path.join(NAVIGATE_MENU_DIR, 'contacts.html')
 
     extra_context = {
         'text': getSingleArticleByName('Contacts').text
@@ -34,7 +39,7 @@ class ContactsView(BaseBlogView):
 
 
 class MyResourcesView(BaseBlogView):
-    template_name = 'navigate_menu\\my_resources.html'
+    template_name = os.path.join(NAVIGATE_MENU_DIR, 'my_resources.html')
 
     extra_context = {
         'text': getSingleArticleByName('My resources').text
@@ -42,7 +47,7 @@ class MyResourcesView(BaseBlogView):
 
 
 class MyWorksView(BaseBlogView):
-    template_name = 'navigate_menu\\my_works.html'
+    template_name = os.path.join(NAVIGATE_MENU_DIR, 'my_works.html')
 
     extra_context = {
         'text': getSingleArticleByName('My works').text

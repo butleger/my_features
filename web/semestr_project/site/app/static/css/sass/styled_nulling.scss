@@ -1,0 +1,17 @@
+/* DEFAULT */
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+
+a {
+    text-decoration: none;
+}

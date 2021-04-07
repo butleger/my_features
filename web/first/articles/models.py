@@ -1,6 +1,4 @@
 from django.db import models
-from tinymce.models import HTMLField
-from ckeditor.fields import RichTextField
 
 
 class CategoryModel(models.Model):
@@ -23,7 +21,7 @@ class ArticleModel(models.Model):
                                  on_delete=models.CASCADE,
                                  default=CategoryModel.OTHER_CATEGORY_ID)
     title = models.CharField(max_length=50)
-    text = RichTextField()
+    text = models.TextField();
     date = models.DateTimeField()
     likes = models.IntegerField(default=0)
 
@@ -100,7 +98,7 @@ class FooterContentModel(models.Model):
 
 class SingleArticleModel(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    text = RichTextField()
+    text = models.TextField()
 
     class Meta:
         verbose_name_plural = 'Одиночные статьи'

@@ -1,13 +1,12 @@
-from django.contrib import admin
 from django.urls import path
-from django.urls import include
-from . import views
+from .views import *
 
 app_name = 'accounts'
 urlpatterns = [
-    path('registration/', views.registrate, name='register_user'),
-    path('registration/complete', views.MySuccessRegistrationView.as_view(), name='success_registration'),
-    path('login/', views.MyLoginView.as_view(), name='login'),
-    path('logout/', views.MyLogoutView.as_view(), name='logout'),
-    path('success_login/', views.MySuccessLoginView.as_view(), name='success_login'),
+    path('registration/', registrate, name='register_user'),
+    path('registration/complete', MySuccessRegistrationView.as_view(), name='success_registration'),
+    path('login/', MyLoginView.as_view(), name='login'),
+    path('logout/', MyLogoutView.as_view(), name='logout'),
+    path('success_login/', MySuccessLoginView.as_view(), name='success_login'),
+    path('new_login/', MyLoginTestView.as_view(), name='test'),
 ]

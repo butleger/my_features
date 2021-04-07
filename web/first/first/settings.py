@@ -24,7 +24,7 @@ SECRET_KEY = 'u33@r%$7!c8ec94f28($@6fcg&2vmc2r@wvej@tqcc^&-czeh^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.32', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.64', '127.0.0.1']
 
 
 # Application definition
@@ -145,7 +145,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'ckeditor')
+#STATIC_ROOT
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
