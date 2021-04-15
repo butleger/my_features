@@ -1,6 +1,14 @@
 from flask import render_template, request
 from base.models import User, Header
+from extensions import login_manager
 from auth.forms import *
+from auth.user_login import UserLogin
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return UserLogin.from_db(user_id)
+
 
 context = {
     'headers': Header.query.all(),
