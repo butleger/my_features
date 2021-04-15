@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdlib.h>
 
 
 void do_parent_work(int child_pid)
@@ -35,6 +36,12 @@ int main(int c, char **v, char **env)
 	int pid;
 
 	pid = fork();
+	if (pid < 0)
+	{
+		printf("Error occured when trying to do fork!\n");
+		exit(-1);
+	}
+
 	if (pid != 0)
 	{
 		do_parent_work(pid);
