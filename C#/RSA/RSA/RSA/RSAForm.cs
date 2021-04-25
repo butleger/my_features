@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,11 @@ namespace EulerAndFastPower.RSA
 
         /*
          * This click activate RSACryptor that generates values
-         * and forms initialize by this values
+         * and forms initialize by this values, also in this method 
+         * added features with calculating time of 2 rsa constructors :
+         *      one threaded(syncronized)
+         *      multy threaded(asyncronized)
+         * and showing report about this
          */
         private void generateKeysButton_Click(object sender, EventArgs e)
         {
@@ -47,7 +52,15 @@ namespace EulerAndFastPower.RSA
                 return;
             }
 
+            Task<TimeSpan> syncRSATimeCounterTask = new Task<TimeSpan>(() => {
+                return RSACryptor.TimeOfRSASynchronizedConstructor(keyLength); 
+            });
+            syncRSATimeCounterTask.Start();
+
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
             cryptor = new RSACryptor(keyLength);
+            timer.Stop();
 
             pIO.Text = cryptor.P.ToString();
             qIO.Text = cryptor.Q.ToString();
@@ -56,6 +69,20 @@ namespace EulerAndFastPower.RSA
             eulerFunctionOutput.Text = cryptor.EulerValue.ToString();
             eOutput.Text = cryptor.E.ToString();
             dOutput.Text = cryptor.D.ToString();
+
+            syncRSATimeCounterTask.Wait();
+            TimeSpan rsaSyncTime = syncRSATimeCounterTask.Result; 
+            string timeReport = GetTimeReport(timer.Elapsed, rsaSyncTime);
+            MessageBox.Show(timeReport);
+        }
+
+
+        private string GetTimeReport(TimeSpan asyncRSATime, TimeSpan syncRSATime)
+        {
+            string result = "";
+            result += $"Asyncronize time : {asyncRSATime}\n";
+            result += $"Syncronize time  :  {syncRSATime}\n";
+            return result;
         }
 
 

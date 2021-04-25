@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Security.Permissions;
@@ -45,6 +46,16 @@ namespace EulerAndFastPower.RSA
         }
 
 
+        public static TimeSpan TimeOfRSASynchronizedConstructor(int bitLength)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            new RSACryptor(bitLength);
+            timer.Stop();
+            return timer.Elapsed;
+        }
+
+
         /*
          * Unsafe constructor that dont do checks
          * and just pass q, p and keyLength values to RSA
@@ -73,8 +84,13 @@ namespace EulerAndFastPower.RSA
 
             PrimeNumberRandomizer rand = new PrimeNumberRandomizer();
 
-            p = rand.GetRandom(keyLength);
-            q = rand.GetRandom(keyLength);
+            Task calculateQ = new Task(() => q = rand.GetRandom(keyLength));
+            Task calculateP = new Task(() => p = rand.GetRandom(keyLength));
+            calculateQ.Start();
+            calculateP.Start();
+            calculateQ.Wait();
+            calculateP.Wait();
+
             while (q == p) q = rand.GetRandom(keyLength);
 
             n = p * q;
@@ -86,7 +102,7 @@ namespace EulerAndFastPower.RSA
 
 
         /*
-         * Generate open exponent in RSA
+         * Generate open exponent(e) in RSA
          */
         private BigInteger GenerateE(int keyLength)
         {
@@ -94,8 +110,8 @@ namespace EulerAndFastPower.RSA
             PrimeNumberRandomizer rand = new PrimeNumberRandomizer();
             BigInteger result = rand.GetRandom(eBitLength);
 
-            while (BigInteger.GreatestCommonDivisor(eulerFunctionValue, e) != 1)
-                result = rand.GetRandom(eBitLength);
+            //while (BigInteger.GreatestCommonDivisor(eulerFunctionValue, e) != 1)
+            //    result = rand.GetRandom(eBitLength);
             
             return result;
         }
