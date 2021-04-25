@@ -41,9 +41,9 @@ namespace EulerAndFastPower.RSA
                 return;
             }
 
-            if (keyLength <= 511)
+            if (keyLength < 64)
             {
-                MessageBox.Show("Length of key should be more than 511!");
+                MessageBox.Show("Length of key should be more than 63!");
                 return;
             }
 

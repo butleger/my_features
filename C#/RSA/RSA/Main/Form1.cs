@@ -11,6 +11,7 @@ using System.Numerics;
 using System.Net.Http.Headers;
 using EulerAndFastPower.RSA;
 using EulerAndFastPower.EratostheneSieve;
+using RSA.PollardFactor;
 
 namespace EulerAndFastPower
 {
@@ -64,6 +65,12 @@ namespace EulerAndFastPower
         private void eratistheneSieveButton_Click(object sender, EventArgs e)
         {
             EratostheneSieveForm form = new EratostheneSieveForm();
+            form.Show();
+        }
+
+        private void pollardFactorButton_Click(object sender, EventArgs e)
+        {
+            RSADecryptorForm form = new RSADecryptorForm();
             form.Show();
         }
     }
