@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace EulerAndFastPower.RSA
 {
+    enum RSAInstanceType { Async, Sync };
+
     /*
      * Main class for RSA algo, its provide all values that RSA needs to generate
      * and can encrypt/decrypt text with keys that it generate by itself
@@ -50,7 +52,7 @@ namespace EulerAndFastPower.RSA
         {
             Stopwatch timer = new Stopwatch();
             timer.Start();
-            new RSACryptor(bitLength);
+            new RSACryptor(bitLength, RSAInstanceType.Sync);
             timer.Stop();
             return timer.Elapsed;
         }
@@ -72,6 +74,35 @@ namespace EulerAndFastPower.RSA
 
 
         /*
+         * This is realy dummy contructor that need only
+         * for one reason : calculating difference between 
+         * async constructor and sync constructor
+         */
+        private RSACryptor(int bitLength, RSAInstanceType type)
+        {
+            if (bitLength <= 0)
+                throw new Exception("all is really bad");
+            
+            if (type == RSAInstanceType.Sync )
+            {
+                keyLength = bitLength;
+                PrimeNumberRandomizer rand = new PrimeNumberRandomizer();
+
+                q = rand.GetRandom(keyLength);
+                p = rand.GetRandom(keyLength);
+
+                while (q == p) q = rand.GetRandom(keyLength);
+
+                n = p * q;
+                eulerFunctionValue = (p - 1) * (q - 1);
+
+                e = GenerateE(keyLength);
+                d = GenerateD(eulerFunctionValue, e);
+            }
+        }
+
+
+        /*
          * This constructor generate all numbers that RSA needs
          * Take care this function may throw exception
          */
@@ -84,12 +115,12 @@ namespace EulerAndFastPower.RSA
 
             PrimeNumberRandomizer rand = new PrimeNumberRandomizer();
 
-            Task calculateQ = new Task(() => q = rand.GetRandom(keyLength));
-            Task calculateP = new Task(() => p = rand.GetRandom(keyLength));
-            calculateQ.Start();
-            calculateP.Start();
-            calculateQ.Wait();
-            calculateP.Wait();
+            Task calculateQTask = new Task(() => q = rand.GetRandom(keyLength));
+            Task calculatePTask = new Task(() => p = rand.GetRandom(keyLength));
+            calculateQTask.Start();
+            calculatePTask.Start();
+            calculateQTask.Wait();
+            calculatePTask.Wait();
 
             while (q == p) q = rand.GetRandom(keyLength);
 
@@ -102,21 +133,21 @@ namespace EulerAndFastPower.RSA
 
 
         /*
-         * Generate open exponent(e) in RSA
+         * Generate e(open exponent) for RSA
          */
         private BigInteger GenerateE(int keyLength)
         {
             int eBitLength = keyLength / 3;
             PrimeNumberRandomizer rand = new PrimeNumberRandomizer();
             BigInteger result = rand.GetRandom(eBitLength);
-
-            //while (BigInteger.GreatestCommonDivisor(eulerFunctionValue, e) != 1)
-            //    result = rand.GetRandom(eBitLength);
             
             return result;
         }
 
 
+        /*
+         * Generate d(secret exponent) for RSA
+         */
         private BigInteger GenerateD(BigInteger eulerFunctionValue, BigInteger e)
         {
             ExtendedGCD gcd = new ExtendedGCD(eulerFunctionValue, e);

@@ -52,11 +52,6 @@ namespace EulerAndFastPower.RSA
                 return;
             }
 
-            Task<TimeSpan> syncRSATimeCounterTask = new Task<TimeSpan>(() => {
-                return RSACryptor.TimeOfRSASynchronizedConstructor(keyLength); 
-            });
-            syncRSATimeCounterTask.Start();
-
             Stopwatch timer = new Stopwatch();
             timer.Start();
             cryptor = new RSACryptor(keyLength);
@@ -70,13 +65,32 @@ namespace EulerAndFastPower.RSA
             eOutput.Text = cryptor.E.ToString();
             dOutput.Text = cryptor.D.ToString();
 
-            syncRSATimeCounterTask.Wait();
-            TimeSpan rsaSyncTime = syncRSATimeCounterTask.Result; 
+            MessageBox.Show("Start calculating sync constructor");
+
+            TimeSpan rsaSyncTime = GetTimeOfSyncConstructor(keyLength); 
             string timeReport = GetTimeReport(timer.Elapsed, rsaSyncTime);
             MessageBox.Show(timeReport);
         }
 
+        
+        /*
+         * Incapsulate logic of calculating 
+         * timing of syncronized constructor
+         */
+        private TimeSpan GetTimeOfSyncConstructor(int keyLength)
+        {
+            Task<TimeSpan> syncRSATimeCounterTask = new Task<TimeSpan>(() => {
+                return RSACryptor.TimeOfRSASynchronizedConstructor(keyLength);
+            });
+            syncRSATimeCounterTask.Start();
+            syncRSATimeCounterTask.Wait();
+            return syncRSATimeCounterTask.Result;
+        }
 
+
+        /*
+         * Prepare report for timing( make it beauty and incapsulated )
+         */
         private string GetTimeReport(TimeSpan asyncRSATime, TimeSpan syncRSATime)
         {
             string result = "";
