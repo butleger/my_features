@@ -20,8 +20,8 @@ namespace RSA.PollardFactor
          */
         Polynom[] polynoms = new Polynom[]
         {
-            (x, number) => { return (x * x + 1) % number; },
-            (x, number) => { return (x * x - 1) % number; }
+            (x, number) => { return (BigInteger.Pow(x, 2) + 1) % number; },
+            (x, number) => { return (BigInteger.Pow(x, 2) - 1) % number; }
         };
 
 
