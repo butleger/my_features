@@ -1,47 +1,69 @@
-/* HEADER */
-
-
 a:hover {
     color: $ref_hover_color;
 }
 
-body {
+@mixin login_menu() {
+    .login_menu {
+        position: relative;
+        .dropdown-title {
+            font-size: 20px;
+        }
+        .dropdown-content {
+            position: absolute;
+            display: none;
+            background-color: $background_color;
+            border-bottom: $default_border;
+            .elem {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                list-style: none;
+                a {
+                    font-size: 18px;
+                }
+            }
+        }
+        &:hover .dropdown-content {
+            display: inline-block;
+        }
+    }
+}
 
+
+/* NAVIGATION */
+
+@mixin navigation() {
+    .nav {
+        display: flex;
+        justify-content: space-around;
+        .active {
+            color: yellow;
+            text-shadow: yellow 0 0 10px;
+            border-bottom: 2px solid black;
+        }
+        >ul>.elem {
+            font-size: 20px;
+            display: inline-block;
+            list-style: none;
+            padding: 20px;
+            a {
+                display: inline-block;
+                height: 100%;
+            }
+        }
+        @include login_menu();
+    }
+}
+
+
+/* HEADER */
+
+body {
     >.header {
         border-bottom: $default_border;
         position: sticky;
         top: 0px;
         width: 100%;
         background-color: $background_color;
-      }
-
-}
-
-
-
-/* NAVIGATION */
-
-.nav {
-    display: flex;
-    justify-content: space-around;
-
-    .active {
-        color: yellow;
-        text-shadow: yellow 0 0 10px;
-        border-left: $default_border;
-        border-right: $default_border;
-        border-bottom: 2px solid black;
-    }
-
-    .elem {
-        font-size: 20px;
-        display: inline-block;
-        list-style: none;
-
-        a {
-            display: inline-block;
-            padding: 20px;
-            height: 100%;
-        }
+        @include navigation();
     }
 }

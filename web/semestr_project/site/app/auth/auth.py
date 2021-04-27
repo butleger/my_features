@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, abort, request
-from auth.controllers import HomeController, LoginController, CreateArticleController
+from auth.controllers import HomeController, LoginController, \
+                    CreateArticleController, LogOutController
 
 
 auth = Blueprint("auth", __name__)
@@ -17,3 +18,8 @@ def login_wrapper():
 @auth.route('/create_article', methods=['GET', 'POST'])
 def create_article_wrapper():
     return CreateArticleController.get_response()
+
+
+@auth.route('/logout')
+def logout_wrapper():
+    return LogOutController.get_response()

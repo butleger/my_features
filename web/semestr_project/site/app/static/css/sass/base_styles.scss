@@ -22,6 +22,10 @@ body {
     background-color: $background_color;
 }
 
+.clear-both {
+    clear: both;
+}
+
 @mixin inner_comment_form() {
     .form {
         .shit {

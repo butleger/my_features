@@ -1,5 +1,5 @@
 from flask import render_template, request, flash, redirect
-from flask_login import login_user, current_user, login_required
+from flask_login import login_user, current_user, login_required, logout_user
 from base.models import User, Header
 from extensions import login_manager
 from base.controllers import BaseController
@@ -32,6 +32,12 @@ class HomeController(OnlyLoggedController):
 
 class LoginController(BaseController):
     template = "auth/login.html"
+    
+    @classmethod
+    def get_context(cls):
+        cls.base_context["form"] = LoginForm()
+        return super().get_context()
+
 
     @classmethod
     def POST(cls):
@@ -43,7 +49,15 @@ class LoginController(BaseController):
             flash("Invalid password or username!", "error")
         else : 
             login_user(user)
-        return render_template(cls.template, **context, form=LoginForm()), cls.status
+        return render_template(cls.template, **context), cls.status
+
+
+class LogOutController(OnlyLoggedController):
+    
+    @classmethod
+    def GET(cls):
+        logout_user()
+        return redirect("/auth/login")
 
 
 class LoginAjaxController(BaseController):

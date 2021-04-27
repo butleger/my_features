@@ -9,6 +9,10 @@ body {
   background-color: black;
 }
 
+.clear-both {
+  clear: both;
+}
+
 /* FORUM */
 .chat {
   margin: 40px;
@@ -172,11 +176,12 @@ body > .footer > .footer_elem {
   font-size: 10pt;
 }
 
-/* HEADER */
 a:hover {
   color: yellowgreen;
 }
 
+/* NAVIGATION */
+/* HEADER */
 body > .header {
   border-bottom: 1px solid #f5deb3;
   position: sticky;
@@ -184,28 +189,47 @@ body > .header {
   width: 100%;
   background-color: black;
 }
-
-/* NAVIGATION */
-.nav {
+body > .header .nav {
   display: flex;
   justify-content: space-around;
 }
-.nav .active {
+body > .header .nav .active {
   color: yellow;
   text-shadow: yellow 0 0 10px;
-  border-left: 1px solid #f5deb3;
-  border-right: 1px solid #f5deb3;
   border-bottom: 2px solid black;
 }
-.nav .elem {
+body > .header .nav > ul > .elem {
   font-size: 20px;
   display: inline-block;
   list-style: none;
-}
-.nav .elem a {
-  display: inline-block;
   padding: 20px;
+}
+body > .header .nav > ul > .elem a {
+  display: inline-block;
   height: 100%;
+}
+body > .header .nav .login_menu {
+  position: relative;
+}
+body > .header .nav .login_menu .dropdown-title {
+  font-size: 20px;
+}
+body > .header .nav .login_menu .dropdown-content {
+  position: absolute;
+  display: none;
+  background-color: black;
+  border-bottom: 1px solid #f5deb3;
+}
+body > .header .nav .login_menu .dropdown-content .elem {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  list-style: none;
+}
+body > .header .nav .login_menu .dropdown-content .elem a {
+  font-size: 18px;
+}
+body > .header .nav .login_menu:hover .dropdown-content {
+  display: inline-block;
 }
 
 /* HOME */

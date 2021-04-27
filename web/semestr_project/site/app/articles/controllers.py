@@ -1,25 +1,29 @@
-from flask import render_template, request
+from flask import render_template, request, abort
 from articles.forms import ArticleCommentForm
-from base.models import Header, Article
+from base.models import Header, Article, User, ArticleComment
 from base.controllers import BaseController
-
+from sqlalchemy.sql import text
+from werkzeug.exceptions import HTTPException
 
 
 class ArticlePickerController(BaseController):
     template = "articles/picker.html"
+    context  = { "articles": Article.query.all() }
 
 
 class ArticleController(BaseController):
     template = "articles/article.html"
 
-
     @classmethod
-    def get_view(cls):
-        def view(*args, **kwargs):
-            context = cls.get_context()
-            article_name = args[0]
-            print("article name = " + str(article_name))
-            if request.method == 'POST':
-                print('comment = ' + request.form.get('comment'))
-            return render_template(cls.template, **context, form=ArticleCommentForm())
-        return view
+    def get_context(cls, *args, **kwargs):
+        cls.base_context["article"] = Article.query.get(kwargs["article_id"])
+        if cls.base_context["article"] is None:
+            abort(404)
+        cls.base_context["author"] = User.query.filter_by(
+            id=cls.base_context["article"].user_id
+        ).first()
+        cls.base_context["comments"] = ArticleComment.query.filter_by(
+            article_id=cls.base_context["article"].id
+        ).all()
+        cls.base_context["form"] = ArticleCommentForm()
+        return super().get_context()

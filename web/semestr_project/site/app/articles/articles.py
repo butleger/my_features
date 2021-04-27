@@ -15,6 +15,6 @@ def picker_wrapper():
     return ArticlePickerController.get_response()
 
 
-@articles.route('/<article_name>')
-def article_wrapper(article_name):
-    return ArticleController.get_response(article_name) 
+@articles.route('/<article_id>')
+def article_wrapper(article_id):
+    return ArticleController.get_response(article_id=article_id) 
