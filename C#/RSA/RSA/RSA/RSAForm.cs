@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,11 @@ namespace EulerAndFastPower.RSA
 
         /*
          * This click activate RSACryptor that generates values
-         * and forms initialize by this values
+         * and forms initialize by this values, also in this method 
+         * added features with calculating time of 2 rsa constructors :
+         *      one threaded(syncronized)
+         *      multy threaded(asyncronized)
+         * and showing report about this
          */
         private void generateKeysButton_Click(object sender, EventArgs e)
         {
@@ -41,13 +46,16 @@ namespace EulerAndFastPower.RSA
                 return;
             }
 
-            if (keyLength <= 511)
+            if (keyLength < 64)
             {
-                MessageBox.Show("Length of key should be more than 511!");
+                MessageBox.Show("Length of key should be more than 63!");
                 return;
             }
 
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
             cryptor = new RSACryptor(keyLength);
+            timer.Stop();
 
             pIO.Text = cryptor.P.ToString();
             qIO.Text = cryptor.Q.ToString();
@@ -56,6 +64,39 @@ namespace EulerAndFastPower.RSA
             eulerFunctionOutput.Text = cryptor.EulerValue.ToString();
             eOutput.Text = cryptor.E.ToString();
             dOutput.Text = cryptor.D.ToString();
+
+            MessageBox.Show("Start calculating sync constructor");
+
+            TimeSpan rsaSyncTime = GetTimeOfSyncConstructor(keyLength); 
+            string timeReport = GetTimeReport(timer.Elapsed, rsaSyncTime);
+            MessageBox.Show(timeReport);
+        }
+
+        
+        /*
+         * Incapsulate logic of calculating 
+         * timing of syncronized constructor
+         */
+        private TimeSpan GetTimeOfSyncConstructor(int keyLength)
+        {
+            Task<TimeSpan> syncRSATimeCounterTask = new Task<TimeSpan>(() => {
+                return RSACryptor.TimeOfRSASynchronizedConstructor(keyLength);
+            });
+            syncRSATimeCounterTask.Start();
+            syncRSATimeCounterTask.Wait();
+            return syncRSATimeCounterTask.Result;
+        }
+
+
+        /*
+         * Prepare report for timing( make it beauty and incapsulated )
+         */
+        private string GetTimeReport(TimeSpan asyncRSATime, TimeSpan syncRSATime)
+        {
+            string result = "";
+            result += $"Asyncronize time : {asyncRSATime}\n";
+            result += $"Syncronize time  :  {syncRSATime}\n";
+            return result;
         }
 
 

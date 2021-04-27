@@ -90,11 +90,11 @@ namespace EulerAndFastPower.EratostheneSieve
          * Mark all multipled values of 'number' in
          * the primarity table by false
          */
-        private void RemoveMultipliers(Int number)
+        private void RemoveMultipliers(Int primeNumber)
         {
-            for (Int multiplier = 2; multiplier * number < topBound; ++multiplier)
+            for (Int multiplier = primeNumber; multiplier * primeNumber < topBound; ++multiplier)
             {
-                Int notPrimeNumber = number * multiplier;
+                Int notPrimeNumber = primeNumber * multiplier;
                 primarityTable[notPrimeNumber] = false;
             }
         }

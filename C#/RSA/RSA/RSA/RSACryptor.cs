@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Security.Permissions;
@@ -9,9 +10,11 @@ using System.Windows.Forms;
 
 namespace EulerAndFastPower.RSA
 {
+    enum RSAInstanceType { Async, Sync };
+
     /*
      * Main class for RSA algo, its provide all values that RSA needs to generate
-     * and can encrypt/decrypt texts with keys that it generate by itself
+     * and can encrypt/decrypt text with keys that it generate by itself
      */
     class RSACryptor
     {
@@ -35,6 +38,71 @@ namespace EulerAndFastPower.RSA
 
 
         /*
+         * This method provide RSACryptor with castom keys, but it
+         * DONT HAVE checks in it, so if you pass bad numbers it
+         * will be your fault and undefined behaviour
+         */
+        public static RSACryptor UnsafeFactory(BigInteger p, BigInteger q, BigInteger e)
+        {
+            return new RSACryptor(p, q, e);
+        }
+
+
+        public static TimeSpan TimeOfRSASynchronizedConstructor(int bitLength)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            new RSACryptor(bitLength, RSAInstanceType.Sync);
+            timer.Stop();
+            return timer.Elapsed;
+        }
+
+
+        /*
+         * Unsafe constructor that dont do checks
+         * and just pass q, p and keyLength values to RSA
+         */
+        private RSACryptor(BigInteger p, BigInteger q, BigInteger e)
+        {
+            this.p = p;
+            this.q = q;
+            n = p * q;
+            eulerFunctionValue = (p - 1) * (q - 1);
+            this.e = e;
+            d = GenerateD(eulerFunctionValue, e);
+        }
+
+
+        /*
+         * This is realy dummy contructor that need only
+         * for one reason : calculating difference between 
+         * async constructor and sync constructor
+         */
+        private RSACryptor(int bitLength, RSAInstanceType type)
+        {
+            if (bitLength <= 0)
+                throw new Exception("all is really bad");
+            
+            if (type == RSAInstanceType.Sync )
+            {
+                keyLength = bitLength;
+                PrimeNumberRandomizer rand = new PrimeNumberRandomizer();
+
+                q = rand.GetRandom(keyLength);
+                p = rand.GetRandom(keyLength);
+
+                while (q == p) q = rand.GetRandom(keyLength);
+
+                n = p * q;
+                eulerFunctionValue = (p - 1) * (q - 1);
+
+                e = GenerateE(keyLength);
+                d = GenerateD(eulerFunctionValue, e);
+            }
+        }
+
+
+        /*
          * This constructor generate all numbers that RSA needs
          * Take care this function may throw exception
          */
@@ -47,38 +115,50 @@ namespace EulerAndFastPower.RSA
 
             PrimeNumberRandomizer rand = new PrimeNumberRandomizer();
 
-            p = rand.GetRandom(keyLength);
-            q = rand.GetRandom(keyLength);
+            Task calculateQTask = new Task(() => q = rand.GetRandom(keyLength));
+            Task calculatePTask = new Task(() => p = rand.GetRandom(keyLength));
+            calculateQTask.Start();
+            calculatePTask.Start();
+            calculateQTask.Wait();
+            calculatePTask.Wait();
+
             while (q == p) q = rand.GetRandom(keyLength);
 
             n = p * q;
             eulerFunctionValue = (p - 1) * (q - 1);
 
-            e = GenerateE();
-
-
-            /*
-             * Generate d parametr through extended gcd 
-             */
-            ExtendedGCD gcd = new ExtendedGCD(eulerFunctionValue, e);
-            d = gcd.Result.Y;
-            while (d < 0) d += eulerFunctionValue;
+            e = GenerateE(keyLength);
+            d = GenerateD(eulerFunctionValue, e);
         }
 
 
         /*
-         * Generate open exponent in RSA
+         * Generate e(open exponent) for RSA
          */
-        private BigInteger GenerateE()
+        private BigInteger GenerateE(int keyLength)
         {
             int eBitLength = keyLength / 3;
             PrimeNumberRandomizer rand = new PrimeNumberRandomizer();
-            return rand.GetRandom(eBitLength);
+            BigInteger result = rand.GetRandom(eBitLength);
+            
+            return result;
         }
 
 
         /*
-         * Get big text and encrypt every char in it
+         * Generate d(secret exponent) for RSA
+         */
+        private BigInteger GenerateD(BigInteger eulerFunctionValue, BigInteger e)
+        {
+            ExtendedGCD gcd = new ExtendedGCD(eulerFunctionValue, e);
+            BigInteger result = gcd.Result.Y;
+            while (result < 0) result += eulerFunctionValue;
+            return result;
+        }
+
+
+        /*
+         * Encrypt all chars in text
          */
         public string Encrypt(string text)
         {
@@ -92,9 +172,9 @@ namespace EulerAndFastPower.RSA
 
 
         /*
-         * Just encrypt one char into big number through RSA
+         * Main RSA Encryption Algo
          */
-        private BigInteger EncryptChar(char sym)
+        public BigInteger EncryptChar(char sym)
         {
             BigInteger c = (BigInteger)sym;
             return BigInteger.ModPow(c, e, n);
@@ -102,7 +182,7 @@ namespace EulerAndFastPower.RSA
 
 
         /*
-         * This function get ciphered with big numbers(that previously be chars)
+         * This function get ciphered text with big numbers(that previously be chars)
          * parse it into array of strings convers string to biginteger and call
          * Decrypt(BigInteger)
          * Take care! This function may throw exception
@@ -139,6 +219,16 @@ namespace EulerAndFastPower.RSA
             return result;
         }
 
+
+        /*
+         * Needed for custom encryptions
+         */
+        public byte[] Decrypt(BigInteger number)
+        {
+            return BigInteger.ModPow(number, d, N).ToByteArray();
+        }
+
+
         /*
          * Algo encrypt symbols into big numbers, 
          * and this function decrypt big numbers into chars back
@@ -150,7 +240,7 @@ namespace EulerAndFastPower.RSA
              * ruin numbers in uncipher window
              */
             int alphabetLength = (int)Math.Pow(2, 8 * sizeof(char));
-            return (char)( BigInteger.ModPow(number, d, n) % alphabetLength);
+            return (char)( BigInteger.ModPow(number, d, n) % alphabetLength );
         }
     }
 }

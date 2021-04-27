@@ -34,6 +34,7 @@
             this.generatePrimeNumberButton = new System.Windows.Forms.Button();
             this.rsaButton = new System.Windows.Forms.Button();
             this.eratistheneSieveButton = new System.Windows.Forms.Button();
+            this.pollardFactorButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // extended_gcd_button
@@ -120,12 +121,27 @@
             this.eratistheneSieveButton.UseVisualStyleBackColor = false;
             this.eratistheneSieveButton.Click += new System.EventHandler(this.eratistheneSieveButton_Click);
             // 
+            // pollardFactorButton
+            // 
+            this.pollardFactorButton.BackColor = System.Drawing.Color.MediumVioletRed;
+            this.pollardFactorButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.pollardFactorButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pollardFactorButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pollardFactorButton.Location = new System.Drawing.Point(107, 335);
+            this.pollardFactorButton.Name = "pollardFactorButton";
+            this.pollardFactorButton.Size = new System.Drawing.Size(650, 41);
+            this.pollardFactorButton.TabIndex = 7;
+            this.pollardFactorButton.Text = "RSA decryptor";
+            this.pollardFactorButton.UseVisualStyleBackColor = false;
+            this.pollardFactorButton.Click += new System.EventHandler(this.pollardFactorButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(877, 343);
+            this.ClientSize = new System.Drawing.Size(877, 418);
+            this.Controls.Add(this.pollardFactorButton);
             this.Controls.Add(this.eratistheneSieveButton);
             this.Controls.Add(this.rsaButton);
             this.Controls.Add(this.generatePrimeNumberButton);
@@ -146,6 +162,7 @@
         private System.Windows.Forms.Button generatePrimeNumberButton;
         private System.Windows.Forms.Button rsaButton;
         private System.Windows.Forms.Button eratistheneSieveButton;
+        private System.Windows.Forms.Button pollardFactorButton;
     }
 }
 

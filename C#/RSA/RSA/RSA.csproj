@@ -81,6 +81,13 @@
     <Compile Include="GeneratePrime\GeneratePrimeForm.Designer.cs">
       <DependentUpon>GeneratePrimeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PollardFactor\PollardFactor.cs" />
+    <Compile Include="PollardFactor\RSADecryptorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PollardFactor\RSADecryptorForm.Designer.cs">
+      <DependentUpon>RSADecryptorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrimaryTesters\IPrimaryTester.cs" />
     <Compile Include="PrimaryTesters\PrimaryTestForm.cs">
       <SubType>Form</SubType>
@@ -113,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeneratePrime\GeneratePrimeForm.resx">
       <DependentUpon>GeneratePrimeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PollardFactor\RSADecryptorForm.resx">
+      <DependentUpon>RSADecryptorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrimaryTesters\PrimaryTestForm.resx">
       <DependentUpon>PrimaryTestForm.cs</DependentUpon>
