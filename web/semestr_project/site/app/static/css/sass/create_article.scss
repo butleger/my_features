@@ -1,69 +1,57 @@
 /* CREATE ARTICLE */
 
 .create_article_wrapper {
-  width: 80%;
-  margin: auto;
-  text-align: left;
-
-  .pre_message {
-    margin-bottom: 30px;
-    text-align: center;
-    .title {
-      font-size: 20pt;
+    width: 80%;
+    margin: auto;
+    text-align: left;
+    .pre_message {
+        margin-bottom: 30px;
+        text-align: center;
+        .title {
+            font-size: 20pt;
+        }
     }
-  }
-
-  .form {
-
-    .title_label_wrapper {
-      text-align: left;
-      margin-bottom: 10px;
-
-      label {
-        font-size: 12pt;
-      }
+    .form {
+        .title_label_wrapper {
+            text-align: left;
+            margin-bottom: 10px;
+            label {
+                font-size: 12pt;
+            }
+        }
+        .title_input_wrapper {
+            margin-bottom: 30px;
+            .title_input {
+                background-color: $background_color;
+                padding: 10px;
+            }
+        }
+        .text_input_wrapper {
+            text-align: left;
+            margin-bottom: 10px;
+            label {
+                font-size: 12pt;
+            }
+        }
+        .article_input_wrapper {
+            .article_input {
+                font-size: 12pt;
+                width: 100%;
+                padding: 30px;
+                background-color: $background_color;
+            }
+        }
+        .submit_input_wrapper {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            .submit_input {
+                background-color: $background_color;
+                border: $default_border;
+                padding: 15px;
+                &:hover {
+                    background-color: $hover_button_color;
+                }
+            }
+        }
     }
-
-    .title_input_wrapper {
-      margin-bottom: 30px;
-
-      .title_input
-      {
-        background-color: $background_color;
-        padding: 10px;
-
-      }
-    }
-
-
-    .text_input_wrapper {
-      text-align: left;
-      margin-bottom: 10px;
-
-      label {
-        font-size: 12pt;
-      }
-    }
-
-    .article_input_wrapper {
-      .article_input {
-        font-size: 12pt;
-        width: 100%;
-        padding: 30px;
-        background-color: $background_color;
-      }
-    }
-
-    .submit_input_wrapper{
-      margin-top: 30px;
-      margin-bottom: 30px;
-
-      .submit_input{
-        background-color: $background_color;
-        border: $default_border;
-        padding: 15px;
-      }
-    }
-
-  }
 }

@@ -3,8 +3,23 @@ from base.models import User
 
 class UserLogin:
     def from_db(self, name, password):
+        if name is None or password is None:
+            return None
+        self.__user = User.query.filter_by(nickname=name, password_hash=password).first()
+        if self.__user is None:
+            return None
+        else :
+            return self
+
+
+    def from_db_by_id(self, user_id):
+        if user_id is None:
+            return None
         self.__user = User.query.filter_by(id=user_id).first()
-        return self
+        if self.__user is None:
+            return None
+        else :
+            return self
 
 
     def create(self, user):
@@ -25,4 +40,4 @@ class UserLogin:
 
     
     def get_id(self):
-        return str(self.__user.id)
+        return self.__user.id

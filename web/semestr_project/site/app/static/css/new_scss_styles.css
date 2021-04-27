@@ -239,6 +239,9 @@ body > .header {
   border: 1px solid #f5deb3;
   padding: 30px;
 }
+.login_form_wrapper .form .error_wrapper .message {
+  color: #660000;
+}
 .login_form_wrapper .form .login_wrapper label {
   margin-top: 20px;
   font-size: 12pt;
@@ -271,7 +274,7 @@ body > .header {
   background-color: black;
 }
 .login_form_wrapper .form .submit_wrapper .submit_input:hover {
-  background-color: #2d2f2d;
+  background-color: #111311;
 }
 
 /* CARDS */
@@ -368,6 +371,9 @@ a {
   background-color: black;
   border: 1px solid #f5deb3;
   padding: 15px;
+}
+.create_article_wrapper .form .submit_input_wrapper .submit_input:hover {
+  background-color: #111311;
 }
 
 /*# sourceMappingURL=new_scss_styles.css.map */

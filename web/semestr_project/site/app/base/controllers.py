@@ -1,5 +1,5 @@
 from base.models import Header
-from flask import render_template
+from flask import render_template, request
 
 
 class BaseController:
@@ -8,7 +8,22 @@ class BaseController:
     }
     context = None
     template = None
+    status=200
     
+
+    @classmethod
+    def setup(cls):
+        return
+
+
+    @classmethod
+    def GET(cls):
+        context = cls.get_context()
+        if cls.template is None:
+             raise Exception("You should specify the template!")
+        return render_template(cls.template, **context), cls.status
+
+
     
     @classmethod
     def get_context(cls):
@@ -19,13 +34,19 @@ class BaseController:
 
     @classmethod
     def get_view(cls):
-        context = cls.get_context()
         def view(*args, **kwargs):
-            print("args = " + str(args))
-            print("kwargs = " + str(kwargs))
-            if cls.template is None:
-                raise Exception("You should specify the template!")
-            return render_template(cls.template, **context)
+            cls.setup()
+            
+            if request.method == "POST":
+                if hasattr(cls,"POST"):
+                    return cls.POST()
+                else :
+                    return cls.GET()
+            elif request.method == "GET":
+                return cls.GET()
+            else :
+                return cls.GET()
+
         return view
 
     

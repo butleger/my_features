@@ -30,6 +30,23 @@ class User(DB.Model):
     def __repr__(self):
         return f"{self.nickname} with email: {self.email}"
 
+    # This is required for flask-login
+    def is_authenticated(self):
+        return True
+
+    
+    def is_active(self):
+        return True
+
+    
+    def is_anonymous(self):
+        return False
+
+    
+    def get_id(self):
+        return self.id
+
+
 
 class UserPermission(DB.Model):
     __tablename__ = "user_permissions"

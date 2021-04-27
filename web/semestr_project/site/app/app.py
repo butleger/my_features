@@ -39,6 +39,7 @@ def create_app():
     app.config.from_object(config)
     register_extensions(app)
     register_blueprints(app)
+    set_default_path(app)
     return app
 
 
@@ -67,8 +68,15 @@ def register_blueprints(app):
     app.register_blueprint(articles, url_prefix='/articles')
 
 
+def set_default_path(app):
+    from common.controllers import RulesController
+    app.add_url_rule('/', 'index', RulesController.get_response)    
+
+
 app = create_app()
 app.debug = True
+
+
 
 manager = Manager(app)
 manager.add_command("migrations", MigrateCommand)

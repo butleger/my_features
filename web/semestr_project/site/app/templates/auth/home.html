@@ -1,10 +1,12 @@
-{% extends "base/content_wrapper.html.j2" %}
-
-{% block content %}
+{% extends "base/content_wrapper.html.j2" %} {% block content %}
 <div class="home">
-    <div class="name">Kuznecov Fedor Romanovich</div>
-    <div class="image"><img src="{{ url_for('static',filename='img/user_photo.jpg' ) }}" alt="here should be your avatar"></div>
-    <div class="info">add here some text email: 090301fidr@gmail.com
+    <div class="name">{{ current_user.nickname }}</div>
+    <div class="image">
+        <img src="{{ current_user.image_url }}" alt="here should be your avatar"></div>
+    <div class="info">
+	About: {{ current_user.about }}<br><br>
+	Email: {{ current_user.email }}<br><br>
+	Registrated: {{ current_user.registration_date.strftime("%b %d %Y")  }}<br><br>
     </div>
     <div class="footer">shitty footer</div>
 </div>

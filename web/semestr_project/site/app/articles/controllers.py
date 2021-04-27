@@ -1,6 +1,6 @@
 from flask import render_template, request
 from articles.forms import ArticleCommentForm
-from base.models import Header
+from base.models import Header, Article
 from base.controllers import BaseController
 
 

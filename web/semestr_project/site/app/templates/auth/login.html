@@ -2,19 +2,29 @@
 {% block content %}
 
 <div class="login_form_wrapper">
-  <form class="form" action="/auth/login" method="POST">
-    <div class="login_wrapper">
-      {{ form.login.label() }}
-      {{ form.login() }}
-    </div>
-    <div class="pass_wrapper">
-      {{ form.password.label() }}
-      {{ form.password() }}
-    </div>
-    <div class="submit_wrapper">
-      {{ form.submit() }}
-    </div>
-  </form>
+    <form class="form" action="/auth/login" method="POST">
+        <div class="error_wrapper">
+       		{% with errors = get_flashed_messages(category_filter=["error"])%} 
+			{% if errors %}
+				{% for msg in errors%}
+            				<div class="message">
+                				{{ msg }}
+            				</div>
+        			{% endfor %} 
+			{% endif %} 
+		{% endwith %}
+        </div>
+
+        <div class="login_wrapper">
+            {{ form.login.label() }} {{ form.login() }}
+        </div>
+        <div class="pass_wrapper">
+            {{ form.password.label() }} {{ form.password() }}
+        </div>
+        <div class="submit_wrapper">
+ 		{{ form.submit() }}
+	</div>
+    </form>
 </div>
 
 {% endblock %}

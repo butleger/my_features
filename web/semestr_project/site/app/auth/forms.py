@@ -21,7 +21,7 @@ class CreateArticleForm(FlaskForm):
 class LoginForm(FlaskForm):
     login = StringField('login',
                         validators=[ DataRequired() ],
-                        render_kw = {'placeholder': 'password',
+                        render_kw = {'placeholder': 'login',
                                      'class': 'login_input'
                                      })
     password = PasswordField('password', render_kw = {
