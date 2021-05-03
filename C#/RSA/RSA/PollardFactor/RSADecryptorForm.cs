@@ -51,15 +51,12 @@ namespace RSA.PollardFactor
             }
 
             PollardFactor factorer = new PollardFactor();
-            Stopwatch timer = new Stopwatch();
 
             BigInteger factor;
             BigInteger iterations;
-            timer.Start();
-            (factor, iterations) = factorer.GetOneDivider( N );
-            timer.Stop();
+            Logger timeLog = new Logger(reportOutput);
+            (factor, iterations) = factorer.GetOneDivider( N, timeLog );
 
-            reportOutput.Text = GetReport(timer.Elapsed, N, factor, iterations);
             BigInteger p, q;
             
             p = factor;
@@ -83,24 +80,6 @@ namespace RSA.PollardFactor
 
             BigInteger encodedText = new BigInteger(rsa.Decrypt(ciphered));
             uncipheredText.Text = BigIntToMubarakov(encodedText);
-        }
-
-
-        /*
-         * Incapsulate preparation of report 
-         */
-        private string GetReport(TimeSpan calcTime, BigInteger number, BigInteger divider, BigInteger iterations)
-        {
-            string factorReport = "";
-
-            factorReport = $"Time : \n";
-            factorReport += $"   {calcTime.Minutes} min \n";
-            factorReport += $"   {calcTime.Seconds} sec \n";
-            factorReport += $"   {calcTime.Milliseconds} ms \n";
-            factorReport += $"Iterations : {iterations} \n";
-            factorReport += $"Factors : {number} = {divider} * {number / divider} \n";
-
-            return factorReport;
         }
 
 

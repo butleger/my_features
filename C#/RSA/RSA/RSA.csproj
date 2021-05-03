@@ -69,6 +69,7 @@
     <Compile Include="FastPow\FastPowForm.Designer.cs">
       <DependentUpon>FastPowForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="Main\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
