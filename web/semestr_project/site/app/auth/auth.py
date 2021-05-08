@@ -1,18 +1,25 @@
 from flask import Blueprint, render_template, abort, request
-from auth.views import *
+from auth.controllers import HomeController, LoginController, \
+                    CreateArticleController, LogOutController
+
 
 auth = Blueprint("auth", __name__)
 
 @auth.route('/home')
 def home_wrapper():
-    return home()
+    return HomeController.get_response()
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login_wrapper():
-    return login()
+    return LoginController.get_response()
 
 
 @auth.route('/create_article', methods=['GET', 'POST'])
 def create_article_wrapper():
-    return create_article()
+    return CreateArticleController.get_response()
+
+
+@auth.route('/logout')
+def logout_wrapper():
+    return LogOutController.get_response()

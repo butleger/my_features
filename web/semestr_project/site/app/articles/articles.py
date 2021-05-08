@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, abort
-from articles.views import *
+from articles.controllers import ArticleController, ArticlePickerController
 
 
 articles = Blueprint("articles", __name__)
@@ -7,14 +7,14 @@ articles = Blueprint("articles", __name__)
 
 @articles.route('/')
 def default_path():
-    return article_picker()
+    return ArticlePickerController.get_response()
 
 
 @articles.route('/picker')
 def picker_wrapper():
-    return article_picker()
+    return ArticlePickerController.get_response()
 
 
-@articles.route('/<article_name>')
-def article_wrapper(article_name):
-    return article(article_name) 
+@articles.route('/<article_id>')
+def article_wrapper(article_id):
+    return ArticleController.get_response(article_id=article_id) 

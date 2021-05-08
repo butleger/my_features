@@ -5,15 +5,24 @@
 <div class="header">
     <div class="nav">
       {% if headers %}
-        {% for elem in headers%}
         <ul>
+        {% for elem in headers %}
             <li class="elem"><a href="{{ elem.url }}" class="ref">{{ elem.title }}</a></li>
-        </ul>
         {% endfor %}
+        <li class="elem">
+          <div class="login_menu ref">
+            <div class="dropdown-title">Auth</div>
+            <ul class="dropdown-content">
+              <li class="elem"><a class="ref" href="/auth/login">Login</a></li>
+              <li class="elem"><a class="ref" href="/auth/home">Home</a></li>
+              <li class="elem"><a class="ref" href="/auth/logout">Logout</a></li>
+            </ul>
+          </div>
+        </li>
+        </ul>
       {% else %}
       <span>Some shit with headers!</span>
       {% endif %}
     </div>
-
 </div>
 {% endblock %}
