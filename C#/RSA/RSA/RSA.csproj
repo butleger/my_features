@@ -82,11 +82,17 @@
     <Compile Include="GeneratePrime\GeneratePrimeForm.Designer.cs">
       <DependentUpon>GeneratePrimeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PollardFactor\PollardFactor.cs" />
-    <Compile Include="PollardFactor\RSADecryptorForm.cs">
+    <Compile Include="AnotherDecryptorForm\AnotherDecryptorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PollardFactor\RSADecryptorForm.Designer.cs">
+    <Compile Include="AnotherDecryptorForm\AnotherDecryptorForm.Designer.cs">
+      <DependentUpon>AnotherDecryptorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RSADecrypt\RhoPollard.cs" />
+    <Compile Include="RSADecrypt\RSADecryptorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RSADecrypt\RSADecryptorForm.Designer.cs">
       <DependentUpon>RSADecryptorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PrimaryTesters\IPrimaryTester.cs" />
@@ -122,7 +128,10 @@
     <EmbeddedResource Include="GeneratePrime\GeneratePrimeForm.resx">
       <DependentUpon>GeneratePrimeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PollardFactor\RSADecryptorForm.resx">
+    <EmbeddedResource Include="AnotherDecryptorForm\AnotherDecryptorForm.resx">
+      <DependentUpon>AnotherDecryptorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSADecrypt\RSADecryptorForm.resx">
       <DependentUpon>RSADecryptorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrimaryTesters\PrimaryTestForm.resx">

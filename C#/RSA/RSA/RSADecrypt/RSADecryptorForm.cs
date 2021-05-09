@@ -50,12 +50,26 @@ namespace RSA.PollardFactor
                 return;
             }
 
-            PollardFactor factorer = new PollardFactor();
+            RhoPollard factorer = new RhoPollard();
 
             BigInteger factor;
             BigInteger iterations;
             Logger timeLog = new Logger(reportOutput);
-            (factor, iterations) = factorer.GetOneDivider( N, timeLog );
+
+
+            /* TestOptimizations print time and iterations
+             * in timeLog ( special widget )
+             */
+            //(factor, iterations) = factorer.TestOptimizations( N, timeLog );
+
+
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+                (factor, iterations) = factorer.GetOneDivider( N );
+            timer.Stop();
+
+            timeLog.Log($"All optimizations timing = {timer.Elapsed}\n");
+
 
             BigInteger p, q;
             
