@@ -5,34 +5,6 @@ from flask_migrate import MigrateCommand
 import datetime
 import os
 
-'''
-def create_app():
-    app = Flask(__name__, static_folder="static", template_folder="templates")
-    register_blueprints(app)
-    app.config.from_object(config)
-    return app
-
-
-def register_extensions(app):
-    from app.extensions import db 
-    db.init_app(app)
-    db.app = app
-
-
-def register_blueprints(app):
-    from articles.articles import articles
-    from common.common import common
-    from forum.forum import forum
-    from auth.auth import auth
-
-    app.register_blueprint(articles, url_prefix="/articles")
-    app.register_blueprint(common, url_prefix="/common")
-    app.register_blueprint(forum, url_prefix="/forum")
-    app.register_blueprint(auth, url_prefix="/auth")
-
-
-app = create_app()
-'''
 
 def create_app():
     app = Flask(__name__, static_folder="static", template_folder="templates")

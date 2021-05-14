@@ -1,0 +1,92 @@
+/* CREATE ARTICLE */
+
+.create_user_wrapper {
+    width: 80%;
+    margin: auto;
+    text-align: left;
+    .pre_message {
+        margin-bottom: 30px;
+        text-align: center;
+        .title {
+            font-size: 20pt;
+        }
+    }
+    .form {
+        .title_label_wrapper {
+            text-align: left;
+            margin-bottom: 10px;
+            label {
+                font-size: 12pt;
+            }
+        }
+        .nickname_input_wrapper {
+            margin-bottom: 30px;
+            .nickname_input {
+                background-color: $background_color;
+                padding: 10px;
+            }
+        }
+        .password_input_wrapper {
+            margin-bottom: 30px;
+            .password_input {
+                background-color: $background_color;
+                padding: 10px;
+            }
+        }
+        .email_input_wrapper {
+            margin-bottom: 30px;
+            .email_input {
+                background-color: $background_color;
+                padding: 10px;
+            }
+        }
+        .image_url_input_wrapper {
+            margin-bottom: 30px;
+            .image_url_input {
+                background-color: $background_color;
+                padding: 10px;
+            }
+        }
+        .text_input_wrapper {
+            text-align: left;
+            margin-bottom: 10px;
+            label {
+                font-size: 12pt;
+            }
+        }
+        .about_input_wrapper {
+            label {
+                margin-bottom: 15px;
+            }
+            .about_input {
+                font-size: 12pt;
+                width: 100%;
+                padding: 30px;
+                background-color: $background_color;
+            }
+        }
+        .footer_input_wrapper {
+            label {
+                margin-bottom: 15px;
+            }
+            .footer_input {
+                font-size: 12pt;
+                width: 100%;
+                padding: 30px;
+                background-color: $background_color;
+            }
+        }
+        .submit_input_wrapper {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            .submit_input {
+                background-color: $background_color;
+                border: $default_border;
+                padding: 15px;
+                &:hover {
+                    background-color: $hover_button_color;
+                }
+            }
+        }
+    }
+}

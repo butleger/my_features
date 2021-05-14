@@ -1,60 +1,11 @@
 {% extends "base/content_wrapper.html.j2" %} 
 {% block content %} 
 	{% for article in articles %}
-		<div class="card">
-    		<div class="title">{{ article.title }}</div>
-    		<div class="subtitle"></div>
-    		<div class="text">{{ article.text }}</div>
-    		<div class="footer">c{{ article.date }}</div>
+		<div id="{{ article.id }}" class="card">
+    		<div id="{{ article.id }}" class="title">{{ article.title }}</div>
+		<div id="{{ article.id }}" class="subtitle">{{ article.author_name }}</div>
+    		<div id="{{ article.id }}" class="text">{{ article.text[:50] }}...</div>
+    		<div id="{{ article.id }}" class="footer">{{ article.date }}</div>
 		</div>
 	{% endfor %}
-
-<div class="card">
-    <div class="title">Card title</div>
-    <div class="subtitle">card subtitle</div>
-    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</div>
-    <div class="footer">card footer</div>
-</div>
-
-<div class="card">
-    <div class="title">Card title</div>
-    <div class="subtitle">card subtitle</div>
-    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</div>
-    <div class="footer">card footer</div>
-</div>
-
-<div class="card">
-    <div class="title">Card title</div>
-    <div class="subtitle">card subtitle</div>
-    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</div>
-    <div class="footer">card footer</div>
-</div>
-
-<div class="card">
-    <div class="title">Card title</div>
-    <div class="subtitle">card subtitle</div>
-    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</div>
-    <div class="footer">card footer</div>
-</div>
-
-<div class="card">
-    <div class="title">Card title</div>
-    <div class="subtitle">card subtitle</div>
-    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</div>
-    <div class="footer">card footer</div>
-</div>
-
-<div class="card">
-    <div class="title">Card title</div>
-    <div class="subtitle">card subtitle</div>
-    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</div>
-    <div class="footer">card footer</div>
-</div>
-
-<div class="card">
-    <div class="title">Card title</div>
-    <div class="subtitle">card subtitle</div>
-    <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</div>
-    <div class="footer">card footer</div>
-</div>
 {% endblock %}

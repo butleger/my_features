@@ -86,6 +86,11 @@ body {
                 color: $base_light_font_color;
             }
             .like {
+                .likes_count {
+                    color: wheat;
+                    font-size: 12pt;
+                    opacity: 70%;
+                }
                 >img {
                     width: $image_size;
                 }

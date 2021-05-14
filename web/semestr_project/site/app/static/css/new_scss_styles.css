@@ -53,6 +53,11 @@ body {
 .chat .message_wrapper .message .like {
   float: right;
 }
+.chat .message_wrapper .message .like .likes_count {
+  color: wheat;
+  font-size: 12pt;
+  opacity: 70%;
+}
 .chat .message_wrapper .message .like > img {
   width: 32px;
 }
@@ -97,7 +102,13 @@ body {
   font-size: 16pt;
 }
 .article > .like {
+  margin-top: 30px;
   margin-bottom: 50px;
+}
+.article > .like .likes_count {
+  color: wheat;
+  font-size: 12pt;
+  opacity: 70%;
 }
 .article > .like > img {
   width: 64px;
@@ -132,6 +143,11 @@ body {
 }
 .article .message_wrapper .message .like {
   float: right;
+}
+.article .message_wrapper .message .like .likes_count {
+  color: wheat;
+  font-size: 12pt;
+  opacity: 70%;
 }
 .article .message_wrapper .message .like > img {
   width: 32px;
@@ -397,6 +413,92 @@ a {
   padding: 15px;
 }
 .create_article_wrapper .form .submit_input_wrapper .submit_input:hover {
+  background-color: #111311;
+}
+
+/* CREATE ARTICLE */
+.create_user_wrapper {
+  width: 80%;
+  margin: auto;
+  text-align: left;
+}
+.create_user_wrapper .pre_message {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.create_user_wrapper .pre_message .title {
+  font-size: 20pt;
+}
+.create_user_wrapper .form .title_label_wrapper {
+  text-align: left;
+  margin-bottom: 10px;
+}
+.create_user_wrapper .form .title_label_wrapper label {
+  font-size: 12pt;
+}
+.create_user_wrapper .form .nickname_input_wrapper {
+  margin-bottom: 30px;
+}
+.create_user_wrapper .form .nickname_input_wrapper .nickname_input {
+  background-color: black;
+  padding: 10px;
+}
+.create_user_wrapper .form .password_input_wrapper {
+  margin-bottom: 30px;
+}
+.create_user_wrapper .form .password_input_wrapper .password_input {
+  background-color: black;
+  padding: 10px;
+}
+.create_user_wrapper .form .email_input_wrapper {
+  margin-bottom: 30px;
+}
+.create_user_wrapper .form .email_input_wrapper .email_input {
+  background-color: black;
+  padding: 10px;
+}
+.create_user_wrapper .form .image_url_input_wrapper {
+  margin-bottom: 30px;
+}
+.create_user_wrapper .form .image_url_input_wrapper .image_url_input {
+  background-color: black;
+  padding: 10px;
+}
+.create_user_wrapper .form .text_input_wrapper {
+  text-align: left;
+  margin-bottom: 10px;
+}
+.create_user_wrapper .form .text_input_wrapper label {
+  font-size: 12pt;
+}
+.create_user_wrapper .form .about_input_wrapper label {
+  margin-bottom: 15px;
+}
+.create_user_wrapper .form .about_input_wrapper .about_input {
+  font-size: 12pt;
+  width: 100%;
+  padding: 30px;
+  background-color: black;
+}
+.create_user_wrapper .form .footer_input_wrapper label {
+  margin-bottom: 15px;
+}
+.create_user_wrapper .form .footer_input_wrapper .footer_input {
+  font-size: 12pt;
+  width: 100%;
+  padding: 30px;
+  background-color: black;
+}
+.create_user_wrapper .form .submit_input_wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.create_user_wrapper .form .submit_input_wrapper .submit_input {
+  background-color: black;
+  border: 1px solid #f5deb3;
+  padding: 15px;
+}
+.create_user_wrapper .form .submit_input_wrapper .submit_input:hover {
   background-color: #111311;
 }
 

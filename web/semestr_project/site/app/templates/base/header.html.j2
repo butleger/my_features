@@ -14,8 +14,13 @@
             <div class="dropdown-title">Auth</div>
             <ul class="dropdown-content">
               <li class="elem"><a class="ref" href="/auth/login">Login</a></li>
-              <li class="elem"><a class="ref" href="/auth/home">Home</a></li>
-              <li class="elem"><a class="ref" href="/auth/logout">Logout</a></li>
+              {% if current_user.is_authenticated %}
+                <li class="elem"><a class="ref" href="/auth/home">Home</a></li>
+                <li class="elem"><a class="ref" href="/auth/logout">Logout</a></li>
+              {% endif %}
+              {% if current_user.nickname == "Fedor" %}
+                  <li class="elem"><a class="ref" href="/auth/create_user">Create User</a></li>
+              {% endif %}
             </ul>
           </div>
         </li>

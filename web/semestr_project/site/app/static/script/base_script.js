@@ -11,36 +11,54 @@ for (ref of refs) {
     })
 }
 
-/*
-let login_form = document.querySelectorAll(".login_form_wrapper form")
 
-if (login_form != null) {
-    let submit = document.querySelector(".form .submit_input")
-    submit.addEventListener("click", () => {
+let cards = document.querySelectorAll(".card")
+
+for (card of cards) {
+    card.addEventListener("click", (e) => {
+        document.location.href = `/articles/${e.target.id}`
+        console.log(e.target)
+    })
+}
+
+let article = document.querySelectorAll(".article")[0]
+
+if (article != undefined && article != null) {
+    let likeImage = document.querySelectorAll(".article .like")[0]
+    likeImage.addEventListener("click", () => {
         let xmlRequest = new XMLHttpRequest()
-        xmlRequest.open("POST", "/auth/ajax", true)
-        let nickname_input = document.querySelector(".login_input")
-        let password_input = document.querySelector(".password_input")
-
-        let data = `${nickname_input.name}=${nickname_input.value}` + "&" +
-            `${password_input.name}=${password_input.value}`
-
+        xmlRequest.open("POST", `/articles/add_like/${article.id}`, true)
         xmlRequest.setRequestHeader(
             'Content-Type',
             'application/x-www-form-urlencoded; charset=UTF-8'
         );
-
         xmlRequest.onload = () => {
-            if (xmlRequest.status == 200)
-                document.location.href = "/auth/home"
-            else {
-                errorBlock = document.querySelector(".error_wrapper")
-                errorBlock.innerHTML += `<div class='message'>${xmlRequest.responseText}</div>`
+            if (xmlRequest.status == 200) {
+                let likes = document.querySelectorAll(".article .like .likes_count")[0]
+                likes.innerHTML = parseInt(likes.innerHTML, 10) + 1;
             }
         }
-
-        xmlRequest.send(data)
+        xmlRequest.send()
     })
 }
 
-*/
+let commentImages = document.querySelectorAll(".message .like")
+if (commentImages != undefined && commentImages != null) {
+    for (let commentImage of commentImages) {
+        commentImage.addEventListener("click", () => {
+            let xmlRequest = new XMLHttpRequest()
+            xmlRequest.open("POST", `/articles/comments/add_like/${commentImage.id}`, true)
+            xmlRequest.setRequestHeader(
+                'Content-Type',
+                'application/x-www-form-urlencoded; charset=UTF-8'
+            );
+            xmlRequest.onload = () => {
+                if (xmlRequest.status == 200) {
+                    let commentLikes = document.querySelectorAll(".message .like .likes_count")[0]
+                    commentLikes.innerHTML = parseInt(commentLikes.innerHTML, 10) + 1;
+                }
+            }
+            xmlRequest.send()
+        })
+    }
+}

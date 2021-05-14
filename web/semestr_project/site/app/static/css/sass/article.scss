@@ -1,35 +1,33 @@
 /* ARTICLE */
 
-
 .article {
     margin: auto;
     max-width: 900px;
     text-align: center;
-
     .title {
         font-size: 40pt;
         font-weight: 500;
     }
-
     .subtitle {
         color: $base_light_font_color;
         font-size: 15pt;
         margin-bottom: 10px;
     }
-
     .text {
         font-size: 16pt;
     }
-
     >.like {
-
-      >img {
-        width: 64px;
-      }
-
-      margin-bottom: 50px;
+        .likes_count {
+            color: wheat;
+            font-size: 12pt;
+            opacity: 70%;
+        }
+        >img {
+            width: 64px;
+        }
+        margin-top: 30px;
+        margin-bottom: 50px;
     }
-
     @include make_message();
     @include comment_form();
 }

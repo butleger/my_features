@@ -1,0 +1,63 @@
+{% extends "base/content_wrapper.html.j2" %} 
+{% block content %}
+
+<div class="create_user_wrapper">
+
+    <div class="pre_message">
+        <span class="title">
+      Here you can create new users!
+    </span>
+    </div>
+
+    <form class="form" method="POST" action="/auth/create_user">
+        {{ form.hidden_tag() }}
+        <div class="nickname_label_wrapper">
+            {{ form.nickname.label() }}
+        </div>
+        <div class="nickname_input_wrapper">
+            {{ form.nickname() }}
+        </div>
+
+        <div class="password_input_wrapper">
+            {{ form.password.label() }}
+        </div>
+        <div class="password_input_wrapper">
+            {{ form.password() }}
+        </div>
+
+        <div class="email_input_wrapper">
+            {{ form.email.label() }}
+        </div>
+        <div class="email_input_wrapper">
+            {{ form.email() }}
+        </div>
+
+        <div class="image_url_input_wrapper">
+            {{ form.image_url.label() }}
+        </div>
+        <div class="image_url_input_wrapper">
+            {{ form.image_url() }}
+        </div>
+
+        <div class="about_input_wrapper">
+            {{ form.about.label() }}
+        </div>
+        <div class="about_input_wrapper">
+            {{ form.about() }}
+        </div>
+
+        <div class="footer_input_wrapper">
+            {{ form.footer.label() }}
+        </div>
+        <div class="footer_input_wrapper">
+            {{ form.footer() }}
+        </div>
+
+        <div class="submit_input_wrapper">
+            {{ form.submit() }}
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

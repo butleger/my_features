@@ -6,6 +6,19 @@
       <span>Title of conversation</span>
     </div>
 
+    {% for comment in comments %}
+        <div class="message_wrapper">
+            <div class="author">
+                <div class="name">fedr@Ubuntu</div>
+            </div>
+            <div class="message">
+                <div class="text">{{ comment.text }}</div>
+                <div class="description">{{ comment.date }}</div>
+                <div class="like"><img width="64" src="{{ url_for('static', filename='img/like.png') }}" alt=""></div>
+            </div>
+        </div>
+    {% endfor %}
+
     <div class="message_wrapper">
         <div class="author">
             <div class="name">fedr_asshole@Ubuntu</div>
