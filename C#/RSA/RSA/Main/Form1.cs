@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using EulerAndFastPower.RSA;
 using EulerAndFastPower.EratostheneSieve;
 using RSA.PollardFactor;
+using RSA.PMinusOnePollard;
 
 namespace EulerAndFastPower
 {
@@ -71,6 +72,12 @@ namespace EulerAndFastPower
         private void pollardFactorButton_Click(object sender, EventArgs e)
         {
             RSADecryptorForm form = new RSADecryptorForm();
+            form.Show();
+        }
+
+        private void anotherDecryptorButton_Click(object sender, EventArgs e)
+        {
+            AnotherDecryptorForm form = new AnotherDecryptorForm();
             form.Show();
         }
     }

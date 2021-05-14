@@ -35,6 +35,7 @@ namespace EulerAndFastPower
                 return 0;
 
             BigInteger result;
+            BigInteger maxValue = BigInteger.Pow(2, bits);
             RandomNumberGenerator r = new RNGCryptoServiceProvider();
             Int64 bytes = bits / 8;
 
@@ -73,7 +74,7 @@ namespace EulerAndFastPower
                 ++result;
 
             while (!tester.TestPrime(result))
-                result += 2;
+                result = (result + 2) % maxValue;
 
             return result;
         }

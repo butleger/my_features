@@ -35,6 +35,7 @@
             this.rsaButton = new System.Windows.Forms.Button();
             this.eratistheneSieveButton = new System.Windows.Forms.Button();
             this.pollardFactorButton = new System.Windows.Forms.Button();
+            this.anotherDecryptorButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // extended_gcd_button
@@ -135,12 +136,27 @@
             this.pollardFactorButton.UseVisualStyleBackColor = false;
             this.pollardFactorButton.Click += new System.EventHandler(this.pollardFactorButton_Click);
             // 
+            // anotherDecryptorButton
+            // 
+            this.anotherDecryptorButton.BackColor = System.Drawing.Color.MediumVioletRed;
+            this.anotherDecryptorButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.anotherDecryptorButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.anotherDecryptorButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.anotherDecryptorButton.Location = new System.Drawing.Point(107, 391);
+            this.anotherDecryptorButton.Name = "anotherDecryptorButton";
+            this.anotherDecryptorButton.Size = new System.Drawing.Size(650, 41);
+            this.anotherDecryptorButton.TabIndex = 8;
+            this.anotherDecryptorButton.Text = "Another RSA decryptor";
+            this.anotherDecryptorButton.UseVisualStyleBackColor = false;
+            this.anotherDecryptorButton.Click += new System.EventHandler(this.anotherDecryptorButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(877, 418);
+            this.ClientSize = new System.Drawing.Size(877, 459);
+            this.Controls.Add(this.anotherDecryptorButton);
             this.Controls.Add(this.pollardFactorButton);
             this.Controls.Add(this.eratistheneSieveButton);
             this.Controls.Add(this.rsaButton);
@@ -163,6 +179,7 @@
         private System.Windows.Forms.Button rsaButton;
         private System.Windows.Forms.Button eratistheneSieveButton;
         private System.Windows.Forms.Button pollardFactorButton;
+        private System.Windows.Forms.Button anotherDecryptorButton;
     }
 }
 
